@@ -1,7 +1,7 @@
 import { type HttpClient, type HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { type UserCredentials } from '../../user.model';
-import { UsersService } from "./users.service"
+import { UsersService } from './users.service';
 
 describe('Given a UsersService class', () => {
   let usersService: UsersService;
@@ -20,14 +20,13 @@ describe('Given a UsersService class', () => {
   });
 
   describe('When we use it to create a new object called sevice', () => {
-
     test('Then service must have loginUser method', () => {
       expect(typeof usersService.loginUser).toBe('function');
     });
 
     test('Then it should call its loginUser method with the apiUrl, a user and an object with header property', () => {
       const user: UserCredentials = {
-        email: "user@user.com",
+        email: 'user@user.com',
         password: 'holaholahola',
       };
       const api = `${apiUrl}${users}${loginUser}`;

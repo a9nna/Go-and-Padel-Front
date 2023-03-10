@@ -7,15 +7,15 @@ describe('Given the feature reducer', () => {
     test('Then it should return the new state with Victor logged', () => {
       const action = loginUser;
       const initialState: UserState = {
-        token: "",
+        token: '',
         isLogged: false,
       };
 
       const user: User = {
-        token: "nsia721noiasmña"
+        token: 'nsia721noiasmña',
       };
       const expectedNewState: UserState = {
-        token: "nsia721noiasmña",
+        token: 'nsia721noiasmña',
         isLogged: true,
       };
 
