@@ -1,16 +1,9 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { loginUser } from '../actions/user.actions';
-import { type UserState } from '../user.model';
+import { type UserState } from '../../user.model';
 
-export interface InitialUserState {
-  email: string;
-  token: string;
-  isLogged: boolean;
-}
-
-const initialState: InitialUserState = {
-  email: '',
-  token: '',
+const initialState: UserState = {
+  token: "",
   isLogged: false,
 };
 
@@ -20,7 +13,7 @@ export const usersFeature = createFeature({
     initialState,
     on(
       loginUser,
-      (state, { user }): UserState => ({ ...state, ...user, isLogged: true })
+      (state, { user }): UserState => ({ ...state, token: user.token, isLogged: true })
     )
   ),
 });

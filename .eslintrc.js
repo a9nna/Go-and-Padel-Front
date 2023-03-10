@@ -8,7 +8,7 @@ module.exports = {
   overrides: [
     {
       extends: ["xo-typescript", "prettier"],
-      files: ["*.ts", "*.tsx"],
+      files: ["*.ts"],
       rules: {
         "@typescript-eslint/consistent-type-definitions": [
           "error",
@@ -22,6 +22,9 @@ module.exports = {
     sourceType: "module",
   },
   rules: {
-    "new-cap": ["error", { capIsNewExceptions: ["NgModule", "Component"] }],
+    "new-cap": [
+      "error",
+      { capIsNewExceptions: ["NgModule", "Component", "Injectable", "Inject"] },
+    ],
   },
 };
