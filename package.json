@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
-    "build": "ng build",
+    "build": "ng generate environments && sed -i 's|};| production: '$PRODUCTION',\\n apiUrl: '$API_URL',\\n path: {\\n users: '$USERS_URL',\\n loginUser: '$LOGIN_URL'\\n }\\n};|' ./src/environments/environment.ts && ng build ",
     "watch": "ng build --watch --configuration development",
     "test": "jest --no-cache",
     "test:coverage": "jest --no-cache --coverage",

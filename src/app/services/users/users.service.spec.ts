@@ -2,6 +2,7 @@ import { type HttpClient, type HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { type UserCredentials } from '../../user.model';
 import { UsersService } from './users.service';
+import {type Environment} from "../../../types"
 
 describe('Given a UsersService class', () => {
   let usersService: UsersService;
@@ -9,7 +10,7 @@ describe('Given a UsersService class', () => {
   const {
     apiUrl,
     path: { users, loginUser },
-  } = environment;
+  } = environment as unknown as Environment;
 
   beforeEach(() => {
     jest.resetModules();

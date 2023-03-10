@@ -3,10 +3,16 @@ import { Inject, Injectable } from '@angular/core';
 import { type Observable } from 'rxjs';
 import { type UserCredentials } from '../../user.model';
 import { environment } from '../../../environments/environment';
+import { type Environment } from 'src/types';
 
+const {
+  apiUrl,
+  path: { users, loginUser },
+} = environment as Environment;
 @Injectable({
   providedIn: 'root',
 })
+
 export class UsersService {
   httpOptions = {
     headers: new HttpHeaders({
@@ -14,14 +20,11 @@ export class UsersService {
     }),
   };
 
-  apiUrl = `${environment.apiUrl}${environment.path.users}${environment.path.loginUser}`;
+  api = `${apiUrl}${users}${loginUser}`;
 
   constructor(@Inject(String) private readonly http: HttpClient) {}
 
   loginUser(user: UserCredentials): Observable<UserCredentials> {
-    return this.http.post<UserCredentials>(this.apiUrl, user, this.httpOptions);
+    return this.http.post<UserCredentials>(this.api, user, this.httpOptions);
   }
 }
-
-// Const response = { token: 'abcd1234' };
-// (httpMock.post as jest.Mock).mockReturnValueOnce(response);

@@ -1,5 +1,5 @@
 import { loginUser } from '../actions/user.actions';
-import { type User, type UserState } from '../../user.model';
+import { type User, type UserState } from '../../../user.model';
 import { reducer } from './user.reducer';
 
 describe('Given the feature reducer', () => {
