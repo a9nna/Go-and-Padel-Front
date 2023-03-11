@@ -1,21 +1,24 @@
-<form>
+<form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="onSubmit()">
   <label>
     Email
     <input
-      [(ngModel)]="user.email"
+      type="email"
+      formControlName="email"
       placeholder="Introduce your email"
       name="email"
+      required
     />
   </label>
   <label>
     Password
     <input
-      [(ngModel)]="user.password"
+      type="password"
+      formControlName="password"
       placeholder="Introduce your password"
       name="password"
     />
   </label>
-  <button class="login-button">Log in</button>
+  <button class="login-button" type="submit">Log in</button>
   <div class="sign-up">
     Haven't you played here? <a href="Sign up">Sign up</a>
   </div>
