@@ -13,12 +13,32 @@ jobs:
       - uses: actions/checkout@v2
         with:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
+
       - name: Node Modules
         run: npm ci
+
+      - name: Environments
+        run: "npx ng generate environments && sed -i 's|};| production: '$PRODUCTION',\\n apiUrl: '$API_URL',\\n path: {\\n users: '$USERS_URL',\\n loginUser: '$LOGIN_URL'\\n }\\n};|' ./src/environments/environment.ts"
+        env:
+          PRODUCTION: ${{ secrets.PRODUCTION }}
+          API_URL: ${{ secrets.API_URL }}
+          USERS_URL: ${{ secrets.USERS_URL }}
+          LOGIN_URL: ${{ secrets.LOGIN_URL }}
+
       - name: Coverage
         run: npm run test:coverage
+        env:
+          PRODUCTION: ${{ secrets.PRODUCTION }}
+          API_URL: ${{ secrets.API_URL }}
+          USERS_URL: ${{ secrets.USERS_URL }}
+          LOGIN_URL: ${{ secrets.LOGIN_URL }}
+
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # Needed to get PR information, if any
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          PRODUCTION: ${{ secrets.PRODUCTION }}
+          API_URL: ${{ secrets.API_URL }}
+          USERS_URL: ${{ secrets.USERS_URL }}
+          LOGIN_URL: ${{ secrets.LOGIN_URL }}

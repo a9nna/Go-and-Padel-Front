@@ -1,9 +1,9 @@
 import { createFeature, createReducer, on } from '@ngrx/store';
 import { loginUser } from '../actions/user.actions';
-import { type UserState } from '../../user.model';
+import { type UserState } from '../../../user.model';
 
 const initialState: UserState = {
-  token: "",
+  token: '',
   isLogged: false,
 };
 
@@ -13,7 +13,11 @@ export const usersFeature = createFeature({
     initialState,
     on(
       loginUser,
-      (state, { user }): UserState => ({ ...state, token: user.token, isLogged: true })
+      (state, { user }): UserState => ({
+        ...state,
+        token: user.token,
+        isLogged: true,
+      })
     )
   ),
 });
