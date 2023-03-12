@@ -1,4 +1,3 @@
-import { type JwtPayload } from 'jwt-decode';
 export interface Environment {
   apiUrl: string;
   path: {
@@ -7,6 +6,3 @@ export interface Environment {
   };
 }
 
-export interface CustomTokenPayload extends JwtPayload {
-  email: string;
-}

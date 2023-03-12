@@ -2,7 +2,7 @@ import { createFeature, createReducer, on } from '@ngrx/store';
 import { loginUser } from '../actions/user.actions';
 import { type UserState } from '../../../user.model';
 
-const initialState: UserState = {
+export const initialState: UserState = {
   token: '',
   isLogged: false,
 };
