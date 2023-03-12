@@ -7,7 +7,9 @@
       placeholder="Introduce your email"
       name="email"
       required
+      (input)="loginFailed=false"
     />
+    <span class="error-message" *ngIf="loginForm.controls['email'].dirty && loginForm.hasError('required', 'email')">*Email is required</span>
   </label>
   <label>
     Password
@@ -16,9 +18,12 @@
       formControlName="password"
       placeholder="Introduce your password"
       name="password"
+      (input)="loginFailed=false"
     />
+    <span class="error-message" *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">*Password is required</span>
+    <span *ngIf="loginFailed" class="error-message">Invalid login credentials</span>
   </label>
-  <button class="login-button" type="submit">Log in</button>
+  <button class="login-button" type="submit" [disabled]="!loginForm.valid">Log in</button>
   <div class="sign-up">
     Haven't you played here? <a href="Sign up">Sign up</a>
   </div>
