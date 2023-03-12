@@ -1,7 +1,7 @@
-import { HttpHeaders, type HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { type Observable } from 'rxjs';
-import { type UserCredentials } from '../../user.model';
+import { type User, type UserCredentials } from '../../user.model';
 import { environment } from '../../../environments/environment';
 import { type Environment } from 'src/types';
 
@@ -12,7 +12,6 @@ const {
 @Injectable({
   providedIn: 'root',
 })
-
 export class UsersService {
   httpOptions = {
     headers: new HttpHeaders({
@@ -20,11 +19,11 @@ export class UsersService {
     }),
   };
 
-  api = `${apiUrl}${users}${loginUser}`;
+  private readonly api = `${apiUrl}${users}${loginUser}`;
 
-  constructor(@Inject(String) private readonly http: HttpClient) {}
+  constructor(@Inject(HttpClient) private readonly http: HttpClient) {}
 
-  loginUser(user: UserCredentials): Observable<UserCredentials> {
-    return this.http.post<UserCredentials>(this.api, user, this.httpOptions);
+  loginUser(user: UserCredentials): Observable<User> {
+    return this.http.post<User>(this.api, user, this.httpOptions);
   }
 }

@@ -5,3 +5,4 @@ export interface Environment {
     loginUser: string;
   };
 }
+

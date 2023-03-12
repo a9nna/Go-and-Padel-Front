@@ -2,7 +2,7 @@ import { type HttpClient, type HttpHeaders } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
 import { type UserCredentials } from '../../user.model';
 import { UsersService } from './users.service';
-import {type Environment} from "../../../types"
+import { type Environment } from '../../../types';
 
 describe('Given a UsersService class', () => {
   let usersService: UsersService;
