@@ -9,9 +9,11 @@ const {
   apiUrl,
   path: { users, loginUser },
 } = environment as Environment;
+
 @Injectable({
   providedIn: 'root',
 })
+
 export class UsersService {
   httpOptions = {
     headers: new HttpHeaders({

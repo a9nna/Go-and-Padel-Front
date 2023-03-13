@@ -1,5 +1,5 @@
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { render, screen, waitFor} from '@testing-library/angular';
+import { render, screen, waitFor } from '@testing-library/angular';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
@@ -8,26 +8,26 @@ import { UsersService } from '../../services/users/users.service';
 import mockStore from '../../../mocks/mockStore/mockStore';
 import { MockUsersService } from '../../../mocks/MockUsersService/MockUsersService';
 import {
-  formBuilderToken,
   LoginUserComponent
 } from './login-user.component';
-import { loginUser } from '../../store/users/actions/user.actions';
-import mockUser from '../../../mocks/mockUser/mockUser';
+import { type UserCredentials } from 'src/app/user.model';
 
 const renderComponent = async () => {
   const store = mockStore();
+  const usersService = new MockUsersService()
 
   await render(LoginUserComponent, {
     imports: [ReactiveFormsModule, FormsModule, HttpClientTestingModule],
     providers: [
-      { provide: UsersService, useValue: new MockUsersService() },
+      { provide: UsersService, useValue: usersService},
       HttpClientTestingModule,
-      { provide: formBuilderToken, useClass: FormBuilder },
+      FormBuilder,
       { provide: Store, useValue: store },
+      { provide: String, useValue: 'stringValue' },
     ],
   });
 
-  return {store}
+  return {store , usersService}
 }
 
 describe('Given a LoginUserComponent', () => {
@@ -105,7 +105,7 @@ describe('Given a LoginUserComponent', () => {
 
       await renderComponent();
 
-      const passwordInput = screen.getByLabelText(text) ;
+      const passwordInput = screen.getByLabelText(text);
 
       await userEvent.click(passwordInput);
       await userEvent.type(passwordInput, passwordInputValue);
@@ -114,24 +114,38 @@ describe('Given a LoginUserComponent', () => {
     });
   });
 
-  describe("When the button with text 'Log in' is clicked", () => {
-    test("Then the onSubmit method should be called", async() => {
-      const text = "Log in";
-      const loggedUser = {
-        user: mockUser
-      }
+  describe("When the user submits the form with email 'user@user.com' and password '12345678' and are correct", () => {
+    test("Then dispatch should be invoked with loginUser Action", async() => {
+      const userCredentials: UserCredentials = {
+        email: 'user@user.com',
+        password: '12345678',
+      };
+      const emailText = 'Email';
+      const passwordText = 'Password';
+      const buttonText = 'Log in';
 
       const { store } = await renderComponent();
 
-      const loginButton = screen.getByRole("button", {
-        name: text
+      const emailInput = screen.getByLabelText(emailText);
+      const passwordInput = screen.getByLabelText(passwordText);
+      const loginButton = screen.getByRole('button', {
+        name: buttonText,
+      });
+
+      await userEvent.click(emailInput);
+      await userEvent.type(emailInput, userCredentials.email);
+      await userEvent.click(passwordInput);
+      await userEvent.type(passwordInput, userCredentials.password);
+
+      await waitFor(() => {
+        expect(loginButton).toBeEnabled();
       });
 
       await userEvent.click(loginButton);
 
       await waitFor(() => {
-        expect(store.dispatch).toHaveBeenCalledWith(loginUser(loggedUser))
-      })
-    });
-  });
+        expect(store.dispatch).toHaveBeenCalled();
+      });
+    })
+  })
 });

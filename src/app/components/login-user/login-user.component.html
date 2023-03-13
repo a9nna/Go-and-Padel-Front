@@ -1,4 +1,4 @@
-<form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="onSubmit()">
+<form [formGroup]="loginForm" autocomplete="off" (ngSubmit)="onSubmit()" novalidate>
   <label>
     Email
     <input
@@ -18,12 +18,13 @@
       formControlName="password"
       placeholder="Introduce your password"
       name="password"
+      required
       (input)="loginFailed=false"
     />
     <span class="error-message" *ngIf="loginForm.controls['password'].dirty && loginForm.hasError('required', 'password')">*Password is required</span>
     <span *ngIf="loginFailed" class="error-message">Invalid login credentials</span>
   </label>
-  <button class="login-button" type="submit" [disabled]="!loginForm.valid">Log in</button>
+  <button class="login-button" type="submit" [disabled]="loginForm.invalid">Log in</button>
   <div class="sign-up">
     Haven't you played here? <a href="Sign up">Sign up</a>
   </div>
