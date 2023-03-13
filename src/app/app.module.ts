@@ -7,10 +7,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
 import { UsersService } from './services/users/users.service';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import {
-  formBuilderToken,
-  LoginUserComponent,
-} from './components/login-user/login-user.component';
+import { LoginUserComponent } from './components/login-user/login-user.component';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { reducer } from './store/users/reducers/user.reducer';
 
@@ -28,7 +25,7 @@ import { reducer } from './store/users/reducers/user.reducer';
   ],
   providers: [
     UsersService,
-    { provide: formBuilderToken, useClass: FormBuilder },
+    FormBuilder,
     { provide: String, useValue: 'stringValue' },
   ],
   bootstrap: [AppComponent],
