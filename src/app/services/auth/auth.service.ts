@@ -11,7 +11,6 @@ export class AuthService {
 
   constructor(
     @Inject(Store) private readonly store: Store,
-
   ) {}
 
   checkToken() {
