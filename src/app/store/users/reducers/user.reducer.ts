@@ -22,4 +22,4 @@ export const usersFeature = createFeature({
   ),
 });
 
-export const { name, reducer } = usersFeature;
+export const { name, reducer, selectIsLogged, selectToken, selectUserState } = usersFeature;
