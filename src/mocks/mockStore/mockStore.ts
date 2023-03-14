@@ -1,5 +1,5 @@
 
-const mockStore = () => ({ dispatch: jest.fn() });
+const mockStore = () => ({ dispatch: jest.fn(), select: jest.fn() });
 
 export default mockStore;
 
