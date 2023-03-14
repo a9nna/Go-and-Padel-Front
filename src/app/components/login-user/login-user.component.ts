@@ -1,9 +1,9 @@
 import { Component, Inject } from '@angular/core';
 import { type FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Store } from '@ngrx/store';
+import { Router } from '@angular/router';
 import { UsersService } from '../../services/users/users.service';
 import { type UserCredentials } from '../../../app/user.model';
-import { loginUser } from '../../store/users/actions/user.actions';
+import { TokenService } from '../../services/token/token.service';
 @Component({
   selector: 'app-login-user',
   templateUrl: './login-user.component.html',
@@ -21,21 +21,19 @@ export class LoginUserComponent {
   constructor(
     @Inject(FormBuilder) private readonly formBuilder: FormBuilder,
     @Inject(UsersService) private readonly usersService: UsersService,
-    @Inject(Store) private readonly usersStore: Store
+    @Inject(TokenService) private readonly tokenService: TokenService,
+    @Inject(Router) private readonly router: Router
   ) {}
 
   onSubmit() {
     const userCredential = this.loginForm.value as UserCredentials;
 
     this.usersService.loginUser(userCredential).subscribe({next: (userData) => {
-      const { token } = userData;
+      this.tokenService.setSession(userData);
 
-      localStorage.setItem('token', token);
-
-      this.usersStore.dispatch(loginUser({ user: { token } }));
-    }, error:() => {
-      this.loginFailed = true;
-    }}
-    );
+      (async () => this.router.navigate(['']))();
+      },error: () => {
+      this.loginFailed = true}
+    })
   }
 }
