@@ -6,3 +6,5 @@ export interface Environment {
   };
 }
 
+export type Store = Record<string, string>;
+
