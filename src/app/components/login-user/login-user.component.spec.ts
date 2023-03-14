@@ -4,22 +4,36 @@ import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { Store } from '@ngrx/store';
+import { RouterTestingModule } from '@angular/router/testing';
+import { throwError } from 'rxjs';
 import { UsersService } from '../../services/users/users.service';
 import mockStore from '../../../mocks/mockStore/mockStore';
 import { MockUsersService } from '../../../mocks/MockUsersService/MockUsersService';
-import {
-  LoginUserComponent
-} from './login-user.component';
-import { type UserCredentials } from 'src/app/user.model';
+import { LoginUserComponent } from './login-user.component';
+import { type UserCredentials } from '../../user.model';
+import { loginUser } from '../../store/users/actions/user.actions';
+import mockUser from '../../../mocks/mockUser/mockUser';
+import { routes } from '../../app-routing.module';
+import { HomePageComponent } from '../pages/home-page/home-page.component';
+import { AppComponent } from '../../app.component';
 
 const renderComponent = async () => {
   const store = mockStore();
-  const usersService = new MockUsersService()
+  const usersService = new MockUsersService();
 
   await render(LoginUserComponent, {
-    imports: [ReactiveFormsModule, FormsModule, HttpClientTestingModule],
+    declarations: [
+      AppComponent,
+      HomePageComponent
+    ],
+    imports: [
+      ReactiveFormsModule,
+      FormsModule,
+      HttpClientTestingModule,
+      RouterTestingModule.withRoutes(routes),
+    ],
     providers: [
-      { provide: UsersService, useValue: usersService},
+      { provide: UsersService, useValue: usersService },
       HttpClientTestingModule,
       FormBuilder,
       { provide: Store, useValue: store },
@@ -27,7 +41,7 @@ const renderComponent = async () => {
     ],
   });
 
-  return {store , usersService}
+  return { store, usersService }
 }
 
 describe('Given a LoginUserComponent', () => {
@@ -144,8 +158,52 @@ describe('Given a LoginUserComponent', () => {
       await userEvent.click(loginButton);
 
       await waitFor(() => {
-        expect(store.dispatch).toHaveBeenCalled();
+        expect(store.dispatch).toHaveBeenCalledWith(loginUser({user: mockUser}));
       });
     })
   })
+
+  describe("When the user submits the form with email 'useruser.com' and password '12345678' and are incorrect", () => {
+    test("Then it should show 'Invalid login credentials' text", async () => {
+      const error = new Error('login failed');
+      const userCredentials: UserCredentials = {
+        email: 'user@user.com',
+        password: '12345678',
+      };
+
+      const { usersService } = await renderComponent();
+
+      const emailText = 'Email';
+      const passwordText = 'Password';
+      const buttonText = 'Log in';
+
+      const emailInput = screen.getByLabelText(emailText);
+      const passwordInput = screen.getByLabelText(passwordText);
+      const loginButton = screen.getByRole('button', {
+        name: buttonText,
+      });
+
+      jest
+        .spyOn(usersService, 'loginUser')
+        .mockReturnValue(throwError(() => error));
+
+      await userEvent.click(emailInput);
+      await userEvent.type(emailInput, userCredentials.email);
+      await userEvent.click(passwordInput);
+      await userEvent.type(passwordInput, userCredentials.password);
+
+      await waitFor(() => {
+        expect(loginButton).toBeEnabled();
+      });
+
+      await userEvent.click(loginButton);
+
+      await waitFor(() => {
+        expect(
+          screen.getByText('Invalid login credentials')
+        ).toBeInTheDocument();
+      });
+    });
+  })
 });
+
