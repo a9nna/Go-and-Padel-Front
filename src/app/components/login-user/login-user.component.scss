@@ -32,7 +32,6 @@ label {
       outline: none;
       border: 1px solid color-palette.$secondary-color;
     }
-
   }
   .error-message {
     padding: 0;
@@ -66,7 +65,6 @@ label {
     color: color-palette.$primary-color-dark;
   }
 }
-
 
 @media (min-width: 700px) {
   :host {

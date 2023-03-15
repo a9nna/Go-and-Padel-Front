@@ -1,8 +1,8 @@
-import { type Store } from "../../types";
+import { type Store } from '../../types';
 
 export const localStorageMock = (function () {
   let store: Store = {
-    key: ""
+    key: '',
   };
 
   return {

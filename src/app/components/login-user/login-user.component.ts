@@ -9,7 +9,6 @@ import { TokenService } from '../../services/token/token.service';
   templateUrl: './login-user.component.html',
   styleUrls: ['./login-user.component.scss'],
 })
-
 export class LoginUserComponent {
   loginForm: FormGroup = this.formBuilder.group({
     email: ['', [Validators.required, Validators.email]],
@@ -28,12 +27,15 @@ export class LoginUserComponent {
   onSubmit() {
     const userCredential = this.loginForm.value as UserCredentials;
 
-    this.usersService.loginUser(userCredential).subscribe({next: (userData) => {
-      this.tokenService.setSession(userData);
+    this.usersService.loginUser(userCredential).subscribe({
+      next: (userData) => {
+        this.tokenService.setSession(userData);
 
-      (async () => this.router.navigate(['']))();
-      },error: () => {
-      this.loginFailed = true}
-    })
+        (async () => this.router.navigate(['']))();
+      },
+      error: () => {
+        this.loginFailed = true;
+      },
+    });
   }
 }

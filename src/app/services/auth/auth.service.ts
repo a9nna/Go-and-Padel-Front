@@ -9,12 +9,10 @@ import { selectIsLogged } from '../../store/users/reducers/user.reducer';
 export class AuthService {
   isLogged$: Observable<boolean> = this.store.select(selectIsLogged);
 
-  constructor(
-    @Inject(Store) private readonly store: Store,
-  ) {}
+  constructor(@Inject(Store) private readonly store: Store) {}
 
   checkToken() {
-    if (localStorage.getItem("token")) {
+    if (localStorage.getItem('token')) {
       return true;
     }
 

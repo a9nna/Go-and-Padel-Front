@@ -5,10 +5,6 @@ import { matchesFeature } from './reducers/matches.reducer';
 
 @NgModule({
   declarations: [],
-  imports: [
-    CommonModule,
-    StoreModule.forFeature(matchesFeature),
-  ]
+  imports: [CommonModule, StoreModule.forFeature(matchesFeature)],
 })
-
-export class MatchesModule { }
+export class MatchesModule {}

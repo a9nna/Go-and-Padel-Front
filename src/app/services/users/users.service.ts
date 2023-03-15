@@ -12,7 +12,6 @@ const {
 @Injectable({
   providedIn: 'root',
 })
-
 export class UsersService {
   httpOptions = {
     headers: new HttpHeaders({
@@ -22,12 +21,9 @@ export class UsersService {
 
   private readonly api = `${apiUrl}${users}${loginUser}`;
 
-  constructor(
-    @Inject(HttpClient) private readonly http: HttpClient,
-  ) {}
+  constructor(@Inject(HttpClient) private readonly http: HttpClient) {}
 
   loginUser(user: UserCredentials) {
-    return this.http
-      .post<User>(this.api, user, this.httpOptions)
+    return this.http.post<User>(this.api, user, this.httpOptions);
   }
 }

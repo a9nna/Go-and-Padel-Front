@@ -3,7 +3,5 @@ import { type Match } from 'src/app/match.model';
 
 export const loadMatches = createAction(
   '[Matches] Load Matches',
-  props<{ matches : Match[] }>()
+  props<{ matches: Match[] }>()
 );
-
-
