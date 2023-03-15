@@ -14,13 +14,10 @@ import { LoginUserComponent } from './components/login-user/login-user.component
 import { UserModule } from './store/users/user.module';
 import { TokenService } from './services/token/token.service';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
+import { MatchesModule } from './store/matches/matches.module';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    LoginUserComponent,
-    HomePageComponent
-  ],
+  declarations: [AppComponent, LoginUserComponent, HomePageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -30,7 +27,8 @@ import { HomePageComponent } from './components/pages/home-page/home-page.compon
     BrowserAnimationsModule,
     FormsModule,
     ReactiveFormsModule,
-    UserModule
+    UserModule,
+    MatchesModule,
   ],
   providers: [
     UsersService,
