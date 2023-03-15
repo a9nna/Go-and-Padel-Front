@@ -5,6 +5,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { HashLocationStrategy, LocationStrategy } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersService } from './services/users/users.service';
@@ -38,7 +39,8 @@ import { HomePageComponent } from './components/pages/home-page/home-page.compon
     Store,
     { provide: String, useValue: 'stringValue' },
     AuthService,
-    TokenService
+    TokenService,
+    { provide: LocationStrategy, useClass: HashLocationStrategy}
   ],
   bootstrap: [AppComponent],
 })
