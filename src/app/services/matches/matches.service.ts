@@ -6,7 +6,7 @@ import { catchError } from 'rxjs';
 import { type Match } from 'src/app/match.model';
 import { environment } from '../../../environments/environment';
 import { type Environment } from 'src/types';
-import { loadMatches } from '../../store/matches/actions/matches.actions';
+import { loadMatches } from '../../store/ui/actions/matches.actions';
 
 const {
   apiUrl,
@@ -35,7 +35,7 @@ export class MatchesService {
     }})
   }
 
-  private handleError(error: HttpErrorResponse) {
+  handleError(error: HttpErrorResponse) {
     return throwError(() => new Error(error.message));
   }
 }
