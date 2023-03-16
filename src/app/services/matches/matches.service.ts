@@ -27,14 +27,16 @@ export class MatchesService {
 
   getMatches(): Observable<Match[]> {
     const req = this.http
-      .get<{matches: Match[]}>(this.api)
+      .get<{ matches: Match[] }>(this.api)
       .pipe(catchError(this.handleError));
 
-    req.subscribe({next: (matches) => {
-      const { matches: allMatches } = matches
+    req.subscribe({
+      next: (matches) => {
+        const { matches: allMatches } = matches;
 
-      this.store.dispatch(loadMatches({matches: allMatches}))
-    }})
+        this.store.dispatch(loadMatches({ matches: allMatches }));
+      },
+    });
 
     return this.store.select(selectMatchesState);
   }

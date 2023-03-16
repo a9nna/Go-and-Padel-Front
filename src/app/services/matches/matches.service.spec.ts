@@ -52,8 +52,8 @@ describe('Given a MatchesService', () => {
   });
 
   describe('When you call ist getMatches method and the Observable receives an error', () => {
-    test("Then it should call its handleError meethod", () => {
-      const errorResponse = new ProgressEvent("Internal server error");
+    test('Then it should call its handleError meethod', () => {
+      const errorResponse = new ProgressEvent('Internal server error');
 
       const handleErrorSpy = jest.spyOn(service, 'handleError');
 
@@ -61,11 +61,10 @@ describe('Given a MatchesService', () => {
       const request = httpController.expectOne({
         method: 'GET',
         url: `${service.api}`,
-      })
-      request.error(errorResponse)
+      });
+      request.error(errorResponse);
 
       expect(handleErrorSpy).toHaveBeenCalled();
-
-    })
-  })
+    });
+  });
 });
