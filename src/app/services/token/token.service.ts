@@ -4,17 +4,15 @@ import { loginUser } from '../../store/users/actions/user.actions';
 import { type User } from '../../user.model';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
-
 export class TokenService {
-
-  constructor(@Inject(Store) private readonly userStore: Store) { }
+  constructor(@Inject(Store) private readonly userStore: Store) {}
 
   setSession(loginResult: User) {
-    const { token } = loginResult
+    const { token } = loginResult;
 
-    localStorage.setItem("token", token);
+    localStorage.setItem('token', token);
 
     this.userStore.dispatch(loginUser({ user: { token } }));
   }

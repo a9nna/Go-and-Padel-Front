@@ -10,7 +10,6 @@ export const routes: Routes = [
     component: HomePageComponent,
   },
   { path: 'home', redirectTo: '', pathMatch: 'full' },
-
 ];
 
 @NgModule({

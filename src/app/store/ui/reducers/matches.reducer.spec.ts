@@ -26,12 +26,9 @@ describe('Given the matchesFeature', () => {
         allowedPlayersNumber: 4,
       };
 
-      const matches: Match[] = [
-        firstMatch,
-        secondMatch
-      ];
+      const matches: Match[] = [firstMatch, secondMatch];
 
-      const receivedMatches = reducer(initialState, action({matches}));
+      const receivedMatches = reducer(initialState, action({ matches }));
 
       expect(receivedMatches).toStrictEqual(matches);
     });

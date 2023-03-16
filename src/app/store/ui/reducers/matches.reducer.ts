@@ -8,11 +8,8 @@ export const matchesFeature = createFeature({
   name: 'matches',
   reducer: createReducer(
     initialState,
-    on(
-      loadMatches,
-      (state, { matches }): Match[] => matches
-    )
-  )
-})
+    on(loadMatches, (state, { matches }): Match[] => matches)
+  ),
+});
 
-export const {name, reducer, selectMatchesState} =  matchesFeature
+export const { name, reducer, selectMatchesState } = matchesFeature;

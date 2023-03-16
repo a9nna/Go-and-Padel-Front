@@ -15,12 +15,13 @@ jobs:
         run: npm ci
 
       - name: Environments
-        run: "npx ng generate environments && sed -i 's|};| production: '$PRODUCTION',\\n apiUrl: '$API_URL',\\n path: {\\n users: '$USERS_URL',\\n loginUser: '$LOGIN_URL'\\n }\\n};|' ./src/environments/environment.ts"
+        run: "npx ng  generate environments && sed -i 's|};|\\n production: '$PRODUCTION',\\n apiUrl: '$API_URL',\\n path: {\\n users: '$USERS_URL',\\n loginUser: '$LOGIN_URL',\\n matches: '$MATCHES_URL'\\n }\\n};|' ./src/environments/environment.ts"
         env:
           PRODUCTION: ${{ secrets.PRODUCTION }}
           API_URL: ${{ secrets.API_URL }}
           USERS_URL: ${{ secrets.USERS_URL }}
           LOGIN_URL: ${{ secrets.LOGIN_URL }}
+          MATCHES_URL: ${{ secrets.MATCHES_URL }}
 
       - name: 🧪 Testing
         run: npm test
@@ -29,3 +30,4 @@ jobs:
           API_URL: ${{ secrets.API_URL }}
           USERS_URL: ${{ secrets.USERS_URL }}
           LOGIN_URL: ${{ secrets.LOGIN_URL }}
+          MATCHES_URL: ${{ secrets.MATCHES_URL }}

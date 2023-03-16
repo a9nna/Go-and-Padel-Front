@@ -4,9 +4,6 @@ import { StoreModule } from '@ngrx/store';
 import { usersFeature } from './reducers/user.reducer';
 
 @NgModule({
-  imports: [
-    CommonModule,
-    StoreModule.forFeature(usersFeature),
-  ],
+  imports: [CommonModule, StoreModule.forFeature(usersFeature)],
 })
 export class UserModule {}

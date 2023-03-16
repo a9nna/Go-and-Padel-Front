@@ -22,10 +22,7 @@ const renderComponent = async () => {
   const usersService = new MockUsersService();
 
   await render(LoginUserComponent, {
-    declarations: [
-      AppComponent,
-      HomePageComponent
-    ],
+    declarations: [AppComponent, HomePageComponent],
     imports: [
       ReactiveFormsModule,
       FormsModule,
@@ -41,8 +38,8 @@ const renderComponent = async () => {
     ],
   });
 
-  return { store, usersService }
-}
+  return { store, usersService };
+};
 
 describe('Given a LoginUserComponent', () => {
   describe('When the component is rendered', () => {
@@ -97,13 +94,13 @@ describe('Given a LoginUserComponent', () => {
   });
 
   describe("When 'user@user.com' is written on email input", () => {
-    test("Then the email input must show 'user@user.com'", async() => {
+    test("Then the email input must show 'user@user.com'", async () => {
       const text = 'Email';
       const emailInputValue = 'user@user.com';
 
       await renderComponent();
 
-      const emailInput = screen.getByLabelText(text) ;
+      const emailInput = screen.getByLabelText(text);
 
       await userEvent.click(emailInput);
       await userEvent.type(emailInput, emailInputValue);
@@ -113,7 +110,7 @@ describe('Given a LoginUserComponent', () => {
   });
 
   describe("When 'holaholahola' is written on password input", () => {
-    test("Then the password input must show 'holaholahola'", async() => {
+    test("Then the password input must show 'holaholahola'", async () => {
       const text = 'Password';
       const passwordInputValue = 'holaholahola';
 
@@ -129,7 +126,7 @@ describe('Given a LoginUserComponent', () => {
   });
 
   describe("When the user submits the form with email 'user@user.com' and password '12345678' and are correct", () => {
-    test("Then dispatch should be invoked with loginUser Action", async() => {
+    test('Then dispatch should be invoked with loginUser Action', async () => {
       const userCredentials: UserCredentials = {
         email: 'user@user.com',
         password: '12345678',
@@ -158,10 +155,12 @@ describe('Given a LoginUserComponent', () => {
       await userEvent.click(loginButton);
 
       await waitFor(() => {
-        expect(store.dispatch).toHaveBeenCalledWith(loginUser({user: mockUser}));
+        expect(store.dispatch).toHaveBeenCalledWith(
+          loginUser({ user: mockUser })
+        );
       });
-    })
-  })
+    });
+  });
 
   describe("When the user submits the form with email 'useruser.com' and password '12345678' and are incorrect", () => {
     test("Then it should show 'Invalid login credentials' text", async () => {
@@ -204,6 +203,5 @@ describe('Given a LoginUserComponent', () => {
         ).toBeInTheDocument();
       });
     });
-  })
+  });
 });
-

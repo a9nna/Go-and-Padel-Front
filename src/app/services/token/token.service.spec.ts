@@ -11,20 +11,22 @@ describe('Given a TokenService', () => {
   beforeEach(() => {
     window.localStorage.clear();
     TestBed.configureTestingModule({
-      providers:[{ provide: Store, useValue: store }]
+      providers: [{ provide: Store, useValue: store }],
     });
     service = TestBed.inject(TokenService);
   });
 
   describe('When you call its setSession method', () => {
     test("Then its type must be 'function'", () => {
-      expect(typeof service.setSession).toBe("function");
-    })
+      expect(typeof service.setSession).toBe('function');
+    });
 
-    test("Then must call dispatch with loginUser Action", () => {
-      service.setSession(mockUser)
+    test('Then must call dispatch with loginUser Action', () => {
+      service.setSession(mockUser);
 
-      expect(store.dispatch).toHaveBeenCalledWith(loginUser({user: mockUser}));
-    })
+      expect(store.dispatch).toHaveBeenCalledWith(
+        loginUser({ user: mockUser })
+      );
+    });
   });
 });
