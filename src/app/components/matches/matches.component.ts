@@ -5,18 +5,21 @@ import { MatchesService } from '../../services/matches/matches.service';
 @Component({
   selector: 'app-matches',
   templateUrl: './matches.component.html',
-  styleUrls: ['./matches.component.scss']
+  styleUrls: ['./matches.component.scss'],
 })
 export class MatchesComponent {
+  matches: Match[] = [];
 
-  matches: Match[] = []
-
-  constructor(@Inject(MatchesService) private readonly matchesService: MatchesService){}
+  constructor(
+    @Inject(MatchesService) private readonly matchesService: MatchesService
+  ) {}
 
   getMatches() {
-    this.matchesService.getMatches().subscribe({next: (allMatches) => {
-      this.matches = allMatches
-    }})
+    this.matchesService.getMatches().subscribe({
+      next: (allMatches) => {
+        this.matches = allMatches;
+      },
+    });
   }
 
   ngOnInit() {

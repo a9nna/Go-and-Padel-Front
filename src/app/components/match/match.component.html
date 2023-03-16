@@ -1,0 +1,24 @@
+<article *ngFor="let match of allMatches; index as i">
+  <img src="{{ match.image }}" alt="Paddle court image" />
+  <div class="info">
+    <div class="info__date">
+      <i></i>
+      <span>{{ match.date | date : "EEEE dd', 'hh:mm a" }}</span>
+    </div>
+    <div class="info__category">
+      <i></i>
+      <span>{{ match.level }} {{ match.category }}</span>
+    </div>
+    <div class="info__spots">
+      <span
+        *ngIf="
+          match.allowedPlayersNumber - match.signedPlayersNumber > 0;
+          else noSpots">
+        {{ match.allowedPlayersNumber - match.signedPlayersNumber }} spots
+        left!</span>
+      <ng-template #noSpots>
+        <label class="info__spots__no-spots">No spots left!</label>
+      </ng-template>
+    </div>
+  </div>
+</article>

@@ -16,9 +16,17 @@ import { TokenService } from './services/token/token.service';
 import { HomePageComponent } from './components/pages/home-page/home-page.component';
 import { MatchesModule } from './store/matches/matches.module';
 import { MatchesComponent } from './components/matches/matches.component';
+import { MatchComponent } from './components/match/match.component';
+
 
 @NgModule({
-  declarations: [AppComponent, LoginUserComponent, HomePageComponent, MatchesComponent],
+  declarations: [
+    AppComponent,
+    LoginUserComponent,
+    HomePageComponent,
+    MatchesComponent,
+    MatchComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
