@@ -6,12 +6,12 @@ import { catchError, type Observable } from 'rxjs';
 import { type Match } from 'src/app/match.model';
 import { environment } from '../../../environments/environment';
 import { type Environment } from 'src/types';
-import { loadMatches } from '../../store/matches/actions/matches.actions';
+import { deleteMatch, loadMatches } from '../../store/matches/actions/matches.actions';
 import { selectMatchesState } from '../../store/matches/reducers/matches.reducer';
 
 const {
   apiUrl,
-  path: { matches },
+  path: { matches, remove }
 } = environment as Environment;
 
 @Injectable({
@@ -39,6 +39,24 @@ export class MatchesService {
     });
 
     return this.store.select(selectMatchesState);
+  }
+
+  deleteMatch( match: Match ): Observable<Match[]> {
+    const { id } = match;
+
+    const req = this.http
+      .delete<{ match: Match }>(`${this.api}${remove}/${id}`)
+      .pipe(catchError(this.handleError));
+
+    req.subscribe({
+      next: (matches) => {
+        const { match } = matches
+
+        this.store.dispatch(deleteMatch({ match }))
+      }
+    })
+
+    return this.store.select(selectMatchesState)
   }
 
   handleError(error: HttpErrorResponse) {
