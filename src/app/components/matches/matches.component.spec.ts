@@ -8,7 +8,9 @@ const renderComponent = async () => {
   const matchesService = new MockMatchesService();
   await render(MatchesComponent, {
     declarations: [ MatchComponent ],
-    providers: [{ provide: MatchesService, useValue: matchesService }],
+    providers: [
+      { provide: MatchesService, useValue: matchesService },
+    ],
   });
 
   return { matchesService };
