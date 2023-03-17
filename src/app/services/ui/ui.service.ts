@@ -6,6 +6,7 @@ import { selectIsLoading } from '../../store/ui/reducers/ui.reducers';
 @Injectable({
   providedIn: 'root',
 })
+
 export class UiService {
 
   constructor(@Inject(Store) private readonly store: Store){}
