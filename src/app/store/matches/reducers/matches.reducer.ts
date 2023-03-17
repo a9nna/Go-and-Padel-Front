@@ -18,8 +18,8 @@ export const matchesFeature = createFeature({
   reducer: createReducer(
     initialState,
     on(loadMatches, (state, { matches }): Match[] => matches),
-    on(deleteMatch, (state, { match }): Match[] => (state.filter(
-      (stateMatch) => stateMatch.id !== match.id
+    on(deleteMatch, (state, matchId ): Match[] => (state.filter(
+      (stateMatch) => stateMatch.id !== matchId.idMatch
     )))
   ),
 });
