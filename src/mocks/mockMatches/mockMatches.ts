@@ -2,6 +2,7 @@ import { type Match } from 'src/app/match.model';
 
 const mockMatches: Match[] = [
   {
+    id: "",
     allowedPlayersNumber: 4,
     category: '',
     date: new Date(),

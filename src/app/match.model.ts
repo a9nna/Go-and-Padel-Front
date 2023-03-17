@@ -1,4 +1,5 @@
 export interface Match {
+  id: string,
   category: string;
   date: Date;
   level: string;

@@ -8,6 +8,7 @@ const renderComponent = async () => {
     componentInputs: {
       allMatches: [
         {
+          id: '',
           allowedPlayersNumber: 4,
           category: 'mixt',
           date: new Date('2023-03-07T13:00:00.000+00:00'),
@@ -17,6 +18,7 @@ const renderComponent = async () => {
           signedPlayersNumber: 1,
         },
         {
+          id: '',
           allowedPlayersNumber: 4,
           category: '',
           date: new Date(),
