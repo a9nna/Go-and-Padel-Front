@@ -3,6 +3,7 @@ export interface Environment {
   path: {
     users: string;
     loginUser: string;
+    remove: string;
     matches: string;
   };
 }
