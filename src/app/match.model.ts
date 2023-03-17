@@ -8,3 +8,7 @@ export interface Match {
   image: string;
   allowedPlayersNumber: number;
 }
+
+export interface MatchId {
+  idMatch: string,
+}

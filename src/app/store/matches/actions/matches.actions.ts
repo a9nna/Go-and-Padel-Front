@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { type Match } from 'src/app/match.model';
+import { type Match, type MatchId } from 'src/app/match.model';
 
 export const loadMatches = createAction(
   '[Matches] Load Matches',
@@ -8,5 +8,5 @@ export const loadMatches = createAction(
 
 export const deleteMatch = createAction(
   '[Matches] Delete Match',
-  props<{ match: Match}>()
+  props<{ idMatch: string }>()
 )
