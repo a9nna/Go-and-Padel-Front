@@ -43,17 +43,13 @@ export class MatchesService {
 
   deleteMatch( match: Match ): Observable<Match[]> {
     const { id } = match;
-
     const req = this.http
-      .delete<{ match: Match }>(`${this.api}${remove}/${id}`)
+      .delete<{ idMatch: string }>(`${this.api}${remove}${id}`)
       .pipe(catchError(this.handleError));
 
-    req.subscribe({
-      next: (matches) => {
-        const { match } = matches
+    req.subscribe((data) => {
 
-        this.store.dispatch(deleteMatch({ match }))
-      }
+      this.store.dispatch(deleteMatch({idMatch: data.idMatch}));
     })
 
     return this.store.select(selectMatchesState)

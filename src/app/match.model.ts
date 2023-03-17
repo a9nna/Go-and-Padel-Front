@@ -9,6 +9,3 @@ export interface Match {
   allowedPlayersNumber: number;
 }
 
-export interface MatchId {
-  idMatch: string,
-}

@@ -79,7 +79,7 @@ describe('Given a MatchesService', () => {
       service.deleteMatch(mockMatches[0]);
       const request = httpController.expectOne({
         method: 'DELETE',
-        url: `${service.api}${remove}/1`
+        url: `${service.api}${remove}1`
       })
       request.flush(mockMatches);
       httpController.verify();
@@ -97,7 +97,7 @@ describe('Given a MatchesService', () => {
       service.deleteMatch(mockMatches[0]);
       const request = httpController.expectOne({
         method: 'DELETE',
-        url: `${service.api}${remove}/1`,
+        url: `${service.api}${remove}1`,
       });
       request.error(errorResponse);
 

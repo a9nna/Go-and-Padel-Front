@@ -1,5 +1,5 @@
 import { createAction, props } from '@ngrx/store';
-import { type Match, type MatchId } from 'src/app/match.model';
+import { type Match } from 'src/app/match.model';
 
 export const loadMatches = createAction(
   '[Matches] Load Matches',
