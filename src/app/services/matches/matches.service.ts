@@ -9,7 +9,7 @@ import { type Environment } from 'src/types';
 import { deleteMatch, loadMatches } from '../../store/matches/actions/matches.actions';
 import { selectMatchesState } from '../../store/matches/reducers/matches.reducer';
 
-const {
+export const {
   apiUrl,
   path: { matches, remove }
 } = environment as Environment;

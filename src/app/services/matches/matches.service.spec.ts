@@ -1,13 +1,13 @@
-import { HttpErrorResponse } from '@angular/common/http';
 import {
   HttpClientTestingModule,
   HttpTestingController,
 } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
 import { Store } from '@ngrx/store';
-import { type Match } from 'src/app/match.model';
+import { type Match } from '../../match.model';
+import mockMatches from '../../../mocks/mockMatches/mockMatches';
 import mockStore from '../../../mocks/mockStore/mockStore';
-import { MatchesService } from './matches.service';
+import { MatchesService, remove } from './matches.service';
 
 describe('Given a MatchesService', () => {
   let service: MatchesService;
@@ -37,7 +37,7 @@ describe('Given a MatchesService', () => {
     test('Then it should call dispatch method with loadMatches action creator', () => {
       const allMatches: Match[] = [];
 
-      const dispatchSpy = jest.spyOn(store, 'dispatch').mockImplementation();
+      const dispatchSpy = jest.spyOn(store, 'dispatch');
 
       service.getMatches();
       const request = httpController.expectOne({
@@ -52,7 +52,7 @@ describe('Given a MatchesService', () => {
   });
 
   describe('When you call ist getMatches method and the Observable receives an error', () => {
-    test('Then it should call its handleError meethod', () => {
+    test('Then it should call its handleError method', () => {
       const errorResponse = new ProgressEvent('Internal server error');
 
       const handleErrorSpy = jest.spyOn(service, 'handleError');
@@ -66,5 +66,42 @@ describe('Given a MatchesService', () => {
 
       expect(handleErrorSpy).toHaveBeenCalled();
     });
+  });
+
+  describe("When you call its deleteMatch method", () => {
+    test("Then its type must be 'function'", () => {
+      expect(typeof service.deleteMatch).toBe('function');
+    })
+
+    test("Then it should call dispatch method with deleteMatch action creator", () => {
+      const dispatchSpy = jest.spyOn(store, "dispatch");
+
+      service.deleteMatch(mockMatches[0]);
+      const request = httpController.expectOne({
+        method: 'DELETE',
+        url: `${service.api}${remove}/1`
+      })
+      request.flush(mockMatches);
+      httpController.verify();
+
+      expect(dispatchSpy).toHaveBeenCalled();
+    })
+  })
+
+  describe('When you call ist deleteMatch method and the Observable receives an error', () => {
+    test("Then it should call its handleError method", () => {
+      const errorResponse = new ProgressEvent('Internal server error');
+
+      const handleErrorSpy = jest.spyOn(service, 'handleError');
+
+      service.deleteMatch(mockMatches[0]);
+      const request = httpController.expectOne({
+        method: 'DELETE',
+        url: `${service.api}${remove}/1`,
+      });
+      request.error(errorResponse);
+
+      expect(handleErrorSpy).toHaveBeenCalled();
+    })
   });
 });
