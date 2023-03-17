@@ -17,6 +17,7 @@ import { HomePageComponent } from './components/pages/home-page/home-page.compon
 import { MatchesModule } from './store/matches/matches.module';
 import { MatchesComponent } from './components/matches/matches.component';
 import { MatchComponent } from './components/match/match.component';
+import { UiModule } from './store/ui/ui.module';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { MatchComponent } from './components/match/match.component';
     ReactiveFormsModule,
     UserModule,
     MatchesModule,
+    UiModule
   ],
   providers: [
     UsersService,

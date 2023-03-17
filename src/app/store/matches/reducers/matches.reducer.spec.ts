@@ -4,7 +4,7 @@ import { reducer } from './matches.reducer';
 
 describe('Given the matchesFeature', () => {
   describe('When it receives an initial state and a loadMatches action with a list of 2 matches', () => {
-    test.only('Then it should return the new state with the list of 2 matches', () => {
+    test('Then it should return the new state with the list of 2 matches', () => {
       const action = loadMatches;
       const initialState: Match[] = [];
       const firstMatch: Match = {
