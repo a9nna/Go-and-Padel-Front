@@ -18,6 +18,7 @@ import { MatchesModule } from './store/matches/matches.module';
 import { MatchesComponent } from './components/matches/matches.component';
 import { MatchComponent } from './components/match/match.component';
 import { UiModule } from './store/ui/ui.module';
+import { LoaderComponent } from './components/loader/loader.component';
 
 
 @NgModule({
@@ -27,6 +28,7 @@ import { UiModule } from './store/ui/ui.module';
     HomePageComponent,
     MatchesComponent,
     MatchComponent,
+    LoaderComponent,
   ],
   imports: [
     BrowserModule,
