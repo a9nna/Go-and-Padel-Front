@@ -12,7 +12,7 @@ article {
   flex-direction: column;
   overflow: hidden;
   width: 300px;
-  height: 510px;
+  height: 500px;
   border: 2px solid color-palette.$primary-color-light;
   border-radius: 15px;
 
@@ -63,6 +63,27 @@ article {
         padding: 5px 35px 5px 35px;
         border-radius: 15px;
         background-color: color-palette.$error-color;
+      }
+    }
+  }
+
+  .actions {
+    display: flex;
+    padding: 50px 10px 10px 10px;
+
+    &__edit  {
+      display: inline-block;
+      height: 70px;
+      width: 125px;
+      border-radius: 50px;
+      background-color: color-palette.$error-color;
+
+      i {
+        display: inline-block;
+        width: 50px;
+        height: 50px;
+        background-size: contain;
+        background-image: url(../../../utils/images/delete-icon.svg);
       }
     }
   }
