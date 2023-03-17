@@ -8,3 +8,4 @@ export interface Match {
   image: string;
   allowedPlayersNumber: number;
 }
+

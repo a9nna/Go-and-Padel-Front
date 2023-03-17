@@ -68,7 +68,7 @@ describe('Given the matchesFeature', () => {
         secondMatch
       ]
 
-      const newState = reducer(initialState, action({ match: firstMatch }))
+      const newState = reducer(initialState, action({ idMatch: firstMatch.id }))
 
       expect(newState).toStrictEqual(expectedNewState)
     })
