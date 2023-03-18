@@ -1,12 +1,17 @@
 @use "../../../styles/typography/typography";
 @use "../../../styles/color-palette/color-palette";
 
+:host{
+  display: block;
+  height: 100vh;
+  width: 100vw;
+}
+
 div{
-  position: absolute;
+  position: fixed;
   background-color: color-palette.$primary-color-dark;
   width: 100vw;
   height: 100vh;
-  backdrop-filter: blur(100px);
 }
 
 .loader {

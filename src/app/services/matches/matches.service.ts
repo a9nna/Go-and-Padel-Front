@@ -8,6 +8,7 @@ import { environment } from '../../../environments/environment';
 import { type Environment } from 'src/types';
 import { deleteMatch, loadMatches } from '../../store/matches/actions/matches.actions';
 import { selectMatchesState } from '../../store/matches/reducers/matches.reducer';
+import { UiService } from '../ui/ui.service';
 
 export const {
   apiUrl,
@@ -22,7 +23,8 @@ export class MatchesService {
 
   constructor(
     @Inject(HttpClient) private readonly http: HttpClient,
-    @Inject(Store) private readonly store: Store
+    @Inject(Store) private readonly store: Store,
+    @Inject(UiService) private readonly uiService: UiService
   ) {}
 
   getMatches(): Observable<Match[]> {
@@ -35,6 +37,7 @@ export class MatchesService {
         const { matches: allMatches } = matches;
 
         this.store.dispatch(loadMatches({ matches: allMatches }));
+        this.uiService.hideLoader()
       },
     });
 
@@ -42,6 +45,8 @@ export class MatchesService {
   }
 
   deleteMatch( match: Match ): Observable<Match[]> {
+    this.uiService.showLoader();
+
     const { id } = match;
     const req = this.http
       .delete<{ idMatch: string }>(`${this.api}${remove}${id}`)
@@ -49,6 +54,7 @@ export class MatchesService {
 
     req.subscribe((data) => {
       this.store.dispatch(deleteMatch({idMatch: data.idMatch}));
+      this.uiService.hideLoader()
     })
 
     return this.store.select(selectMatchesState)
