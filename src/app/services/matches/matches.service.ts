@@ -48,7 +48,6 @@ export class MatchesService {
       .pipe(catchError(this.handleError));
 
     req.subscribe((data) => {
-
       this.store.dispatch(deleteMatch({idMatch: data.idMatch}));
     })
 

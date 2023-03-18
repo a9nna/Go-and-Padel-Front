@@ -18,4 +18,10 @@ export class MockMatchesService {
 
     return matches;
   }
+
+  deleteMatch(match: Match): Observable<Match[]> {
+    const deletedMatch = of([match]);
+
+    return deletedMatch
+  }
 }

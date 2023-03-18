@@ -119,11 +119,11 @@ describe('Given a MatchComponent', () => {
   })
 
   describe("When the button with 'Delete match' accessibility is clicked", () => {
-    test("Then dispatch should be invoked with deleteMatch action", async() => {
+    test("Then its onDelete method should be called", async() => {
       const text = /delete match/i;
 
       await renderComponent();
-      const spy = jest.spyOn(MatchComponent.prototype, "onDelete")
+      const onDeleteSpy = jest.spyOn(MatchComponent.prototype, "onDelete")
       const deleteButton = screen.getAllByRole("button", {
         name: text,
       })
@@ -134,7 +134,7 @@ describe('Given a MatchComponent', () => {
 
       await userEvent.click(deleteButton[0]);
 
-      expect(spy).toHaveBeenCalled()
+      expect(onDeleteSpy).toHaveBeenCalled()
 
     })
   })
