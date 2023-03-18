@@ -1,44 +1,51 @@
-import { type HttpClient, type HttpHeaders } from '@angular/common/http';
-import { environment } from '../../../environments/environment';
-import { type UserCredentials } from '../../user.model';
+import {
+  HttpClientTestingModule,
+  HttpTestingController,
+} from '@angular/common/http/testing';
+import { TestBed } from '@angular/core/testing';
+import { UiService } from '../ui/ui.service';
+import { Store } from '@ngrx/store';
 import { UsersService } from './users.service';
-import { type Environment } from '../../../types';
+import mockStore from '../../../mocks/mockStore/mockStore';
+import { type UserCredentials } from 'src/app/user.model';
 
-describe('Given a UsersService class', () => {
+describe('Given a User Service', () => {
   let usersService: UsersService;
-  let httpMock: Partial<HttpClient>;
-  const {
-    apiUrl,
-    path: { users, loginUser },
-  } = environment as unknown as Environment;
+  let httpMockController: HttpTestingController;
+  let uiService: UiService;
+  const store = mockStore();
 
   beforeEach(() => {
-    jest.resetModules();
-    httpMock = {
-      post: jest.fn(),
-    };
-    usersService = new UsersService(httpMock as HttpClient);
-  });
-
-  describe('When we use it to create a new object called sevice', () => {
-    test('Then service must have loginUser method', () => {
-      expect(typeof usersService.loginUser).toBe('function');
+    TestBed.configureTestingModule({
+      imports: [
+        HttpClientTestingModule,
+      ],
+      providers: [
+        UsersService,
+        UiService,
+        { provide: Store, useValue: store },
+      ],
     });
 
-    test('Then it should call its loginUser method with the apiUrl, a user and an object with header property', () => {
+    usersService = TestBed.inject(UsersService);
+    httpMockController = TestBed.inject(HttpTestingController);
+    uiService = TestBed.inject(UiService);
+  });
+
+  afterEach(() => {
+    httpMockController.verify();
+  });
+
+  describe("When its login method is invoked with a user with 'ana@ana.com' email and 'holaholahola' password", () => {
+    test('Then dispatch should be invoked', () => {
       const user: UserCredentials = {
-        email: 'user@user.com',
+        email: 'ana@ana.com',
         password: 'holaholahola',
       };
-      const api = `${apiUrl}${users}${loginUser}`;
 
-      usersService.loginUser(user);
+      usersService.loginUser(user)
 
-      expect(httpMock.post).toHaveBeenCalledWith(
-        api,
-        user,
-        expect.objectContaining({ headers: expect.any(Object) as HttpHeaders })
-      );
+      expect(store.dispatch).toHaveBeenCalled();
     });
   });
 });

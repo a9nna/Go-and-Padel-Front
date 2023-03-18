@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { showLoading } from '../../store/ui/actions/ui.actions';
+import { hideLoading, showLoading } from '../../store/ui/actions/ui.actions';
 import { selectIsLoading } from '../../store/ui/reducers/ui.reducers';
 
 @Injectable({
@@ -15,7 +15,11 @@ export class UiService {
     this.store.dispatch(showLoading());
   }
 
-  getLoader(){
+  getLoader() {
     this.store.select(selectIsLoading);
+  }
+
+  hideLoader() {
+    this.store.dispatch(hideLoading());
   }
 }
