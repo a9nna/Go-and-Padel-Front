@@ -1,5 +1,5 @@
 import { type UiState } from "src/app/ui.model"
-import { showLoading } from "../actions/ui.actions"
+import { hideLoading, showLoading } from "../actions/ui.actions"
 import { reducer } from "./ui.reducers"
 
 describe("Given a uiFeature", () => {
@@ -14,6 +14,21 @@ describe("Given a uiFeature", () => {
 
       const newState = reducer(initialState, showLoading())
 
+
+      expect(newState).toStrictEqual(expectedLoading)
+    })
+  })
+
+  describe("When it receives an initial state and hideLoading action with a isLoading setted on true", () => {
+    test("Then it should return the new state with isLoading setted on false", () => {
+      const initialState: UiState = {
+        isLoading: true
+      }
+      const expectedLoading: UiState = {
+        isLoading: false
+      }
+
+      const newState = reducer(initialState, hideLoading())
 
       expect(newState).toStrictEqual(expectedLoading)
     })
