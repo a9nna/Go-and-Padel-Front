@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { type Match } from 'src/app/match.model';
 
 @Component({
@@ -8,4 +8,11 @@ import { type Match } from 'src/app/match.model';
 })
 export class MatchComponent {
   @Input() allMatches: Match[] = [];
+  @Output() matchToDelete = new EventEmitter<Match>();
+
+  deleteAriaLabel = 'Delete match';
+
+  onDelete(match: Match) {
+    this.matchToDelete.emit(match);
+  }
 }

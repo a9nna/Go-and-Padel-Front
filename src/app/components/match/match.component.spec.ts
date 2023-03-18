@@ -1,14 +1,24 @@
-import { render, screen } from '@testing-library/angular';
+import { Store } from '@ngrx/store';
+import { render, screen, waitFor } from '@testing-library/angular';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { MatchesService } from '../../services/matches/matches.service';
+import mockStore from '../../../mocks/mockStore/mockStore';
 import { MatchesComponent } from '../matches/matches.component';
 import { MatchComponent } from './match.component';
 
 const renderComponent = async () => {
+  const store = mockStore();
+  const matchesService = {
+    deleteMatch: jest.fn()
+  };
+
   await render(MatchComponent, {
-    componentInputs: {
+    componentProperties: {
       allMatches: [
         {
-          id: '',
+          id: '1',
           allowedPlayersNumber: 4,
           category: 'mixt',
           date: new Date('2023-03-07T13:00:00.000+00:00'),
@@ -18,7 +28,7 @@ const renderComponent = async () => {
           signedPlayersNumber: 1,
         },
         {
-          id: '',
+          id: '2',
           allowedPlayersNumber: 4,
           category: '',
           date: new Date(),
@@ -29,8 +39,16 @@ const renderComponent = async () => {
         },
       ],
     },
+    imports: [HttpClientTestingModule],
     declarations: [MatchesComponent],
+    providers: [
+      { provide: Store, useValue: store },
+      HttpClientTestingModule,
+      { provide: MatchesService, useValue: matchesService },
+    ],
   });
+
+  return {store, matchesService}
 };
 
 describe('Given a MatchComponent', () => {
@@ -87,5 +105,37 @@ describe('Given a MatchComponent', () => {
       expect(spots).toBeInTheDocument();
       expect(spots).toHaveClass('info__spots__no-spots');
     });
+
+    test("Then it should show a button with 'Delete match' accesibility text", async() => {
+      const text = /delete match/i;
+
+      await renderComponent();
+      const button = screen.getAllByRole("button", {
+        name: text,
+      })
+
+      expect(button[0]).toBeInTheDocument();
+    })
+  })
+
+  describe("When the button with 'Delete match' accessibility is clicked", () => {
+    test("Then dispatch should be invoked with deleteMatch action", async() => {
+      const text = /delete match/i;
+
+      await renderComponent();
+      const spy = jest.spyOn(MatchComponent.prototype, "onDelete")
+      const deleteButton = screen.getAllByRole("button", {
+        name: text,
+      })
+
+      await waitFor(() => {
+        expect(deleteButton[0]).toBeInTheDocument()
+      })
+
+      await userEvent.click(deleteButton[0]);
+
+      expect(spy).toHaveBeenCalled()
+
+    })
   })
 });
