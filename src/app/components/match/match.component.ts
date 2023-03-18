@@ -10,7 +10,9 @@ export class MatchComponent {
   @Input() allMatches: Match[] = [];
   @Output() matchToDelete = new EventEmitter<Match>();
 
+  deleteAriaLabel = 'Delete match';
+
   onDelete(match: Match) {
-    this.matchToDelete.emit(match)
+    this.matchToDelete.emit(match);
   }
 }
