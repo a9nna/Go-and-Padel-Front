@@ -26,6 +26,7 @@ jobs:
           LOGIN_URL: ${{ secrets.LOGIN_URL }}
           MATCHES_URL: ${{ secrets.MATCHES_URL }}
           DELETE_URL: ${{ secrets.DELETE_URL }}
+          CREATE_URL: ${{ secrets.CREATE_URL }}
 
       - name: Coverage
         run: npm run test:coverage
@@ -36,6 +37,7 @@ jobs:
           LOGIN_URL: ${{ secrets.LOGIN_URL }}
           MATCHES_URL: ${{ secrets.MATCHES_URL }}
           DELETE_URL: ${{ secrets.DELETE_URL }}
+          CREATE_URL: ${{ secrets.CREATE_URL }}
 
       - name: SonarCloud Scan
         uses: SonarSource/sonarcloud-github-action@master
@@ -48,3 +50,4 @@ jobs:
           LOGIN_URL: ${{ secrets.LOGIN_URL }}
           MATCHES_URL: ${{ secrets.MATCHES_URL }}
           DELETE_URL: ${{ secrets.DELETE_URL }}
+          CREATE_URL: ${{ secrets.CREATE_URL }}

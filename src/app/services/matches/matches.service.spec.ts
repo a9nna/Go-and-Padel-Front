@@ -7,7 +7,7 @@ import { Store } from '@ngrx/store';
 import { type Match } from '../../match.model';
 import mockMatches from '../../../mocks/mockMatches/mockMatches';
 import mockStore from '../../../mocks/mockStore/mockStore';
-import { MatchesService, remove } from './matches.service';
+import { create, MatchesService, remove } from './matches.service';
 
 describe('Given a MatchesService', () => {
   let service: MatchesService;
@@ -19,14 +19,17 @@ describe('Given a MatchesService', () => {
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
-      providers: [{ provide: Store, useValue: store }],
+      providers: [
+        { provide: Store, useValue: store }, MatchesService
+      ],
     });
     service = TestBed.inject(MatchesService);
     httpController = TestBed.inject(HttpTestingController);
   });
 
-  afterAll(() => {
+  afterEach(() => {
     jest.clearAllMocks();
+    httpController.verify();
   });
 
   describe('When you call its getMatches method', () => {
@@ -64,6 +67,7 @@ describe('Given a MatchesService', () => {
       });
       request.error(errorResponse);
 
+
       expect(handleErrorSpy).toHaveBeenCalled();
     });
   });
@@ -88,7 +92,7 @@ describe('Given a MatchesService', () => {
     })
   })
 
-  describe('When you call ist deleteMatch method and the Observable receives an error', () => {
+  describe('When you call its deleteMatch method and the Observable receives an error', () => {
     test("Then it should call its handleError method", () => {
       const errorResponse = new ProgressEvent('Internal server error');
 
@@ -104,4 +108,20 @@ describe('Given a MatchesService', () => {
       expect(handleErrorSpy).toHaveBeenCalled();
     })
   });
+
+  describe("When you call its createMatch method", () => {
+    test("Then its type must be 'function'", () => {
+      expect(typeof service.createMatch).toBe("function");
+    })
+
+    test("Then the method createMatch should be called with a matchData", () => {
+      const matchData: Match = mockMatches[0];
+
+      const spy = jest.spyOn(service, "createMatch")
+
+      service.createMatch(matchData)
+
+      expect(spy).toHaveBeenCalledWith(matchData)
+    })
+  })
 });
