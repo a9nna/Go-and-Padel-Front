@@ -22,6 +22,7 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { CreateMatchComponent } from './components/create-match/create-match.component';
 import { CreateMatchPageComponent } from './components/pages/create-match-page/create-match-page.component';
 import { HeaderComponent } from './components/header/header.component';
+import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { HeaderComponent } from './components/header/header.component';
     CreateMatchComponent,
     CreateMatchPageComponent,
     HeaderComponent,
+    NavBarComponent,
   ],
   imports: [
     BrowserModule,
