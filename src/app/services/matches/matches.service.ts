@@ -3,7 +3,7 @@ import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { throwError } from 'rxjs/internal/observable/throwError';
 import { catchError, type Observable } from 'rxjs';
-import { type Match } from 'src/app/match.model';
+import { type MatchData, type Match } from 'src/app/match.model';
 import { environment } from '../../../environments/environment';
 import { type Environment } from 'src/types';
 import { deleteMatch, loadMatches } from '../../store/matches/actions/matches.actions';
@@ -34,6 +34,7 @@ export class MatchesService {
   ) {}
 
   getMatches(): Observable<Match[]> {
+
     const req = this.http
       .get<{ matches: Match[] }>(this.api)
       .pipe(catchError(this.handleError));
@@ -66,10 +67,18 @@ export class MatchesService {
     return this.store.select(selectMatchesState);
   }
 
-  createMatch(matchData: Match): Observable<Match> {
-    return this.http
-      .post<Match>(`${this.api}${create}`, matchData, this.httpOptions)
+  createMatch(matchData: MatchData): Observable<Match[]> {
+    this.uiService.showLoader();
+
+    const req = this.http
+      .post<MatchData>(`${this.api}${create}`, matchData, this.httpOptions)
       .pipe(catchError(this.handleError));
+
+    req.subscribe(() => {
+      this.uiService.hideLoader();
+    })
+
+    return this.store.select(selectMatchesState)
   }
 
   handleError(error: HttpErrorResponse) {

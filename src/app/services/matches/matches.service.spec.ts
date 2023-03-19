@@ -8,6 +8,7 @@ import { type Match } from '../../match.model';
 import mockMatches from '../../../mocks/mockMatches/mockMatches';
 import mockStore from '../../../mocks/mockStore/mockStore';
 import { create, MatchesService, remove } from './matches.service';
+import { CreateMatchComponent } from '../../components/create-match/create-match.component';
 
 describe('Given a MatchesService', () => {
   let service: MatchesService;
@@ -19,6 +20,7 @@ describe('Given a MatchesService', () => {
 
     TestBed.configureTestingModule({
       imports: [HttpClientTestingModule],
+      declarations: [CreateMatchComponent],
       providers: [
         { provide: Store, useValue: store }, MatchesService
       ],
@@ -29,7 +31,6 @@ describe('Given a MatchesService', () => {
 
   afterEach(() => {
     jest.clearAllMocks();
-    httpController.verify();
   });
 
   describe('When you call its getMatches method', () => {
@@ -66,7 +67,7 @@ describe('Given a MatchesService', () => {
         url: `${service.api}`,
       });
       request.error(errorResponse);
-
+      httpController.verify();
 
       expect(handleErrorSpy).toHaveBeenCalled();
     });
@@ -104,6 +105,7 @@ describe('Given a MatchesService', () => {
         url: `${service.api}${remove}1`,
       });
       request.error(errorResponse);
+      httpController.verify();
 
       expect(handleErrorSpy).toHaveBeenCalled();
     })
@@ -114,14 +116,18 @@ describe('Given a MatchesService', () => {
       expect(typeof service.createMatch).toBe("function");
     })
 
-    test("Then the method createMatch should be called with a matchData", () => {
+    test("Then it should make a request with POST method and /matches/create path", () => {
       const matchData: Match = mockMatches[0];
 
-      const spy = jest.spyOn(service, "createMatch")
-
       service.createMatch(matchData)
+      const request = httpController.expectOne({
+        method: 'POST',
+        url: `${service.api}${create}`,
+      });
+      request.flush(mockMatches[0]);
+      httpController.verify();
 
-      expect(spy).toHaveBeenCalledWith(matchData)
+      expect(request.request.method).toEqual('POST');
     })
   })
 });
