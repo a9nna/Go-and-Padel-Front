@@ -20,6 +20,7 @@ import { MatchComponent } from './components/match/match.component';
 import { UiModule } from './store/ui/ui.module';
 import { LoaderComponent } from './components/loader/loader.component';
 import { CreateMatchComponent } from './components/create-match/create-match.component';
+import { CreateMatchPageComponent } from './components/pages/create-match-page/create-match-page.component';
 
 @NgModule({
   declarations: [
@@ -30,6 +31,7 @@ import { CreateMatchComponent } from './components/create-match/create-match.com
     MatchComponent,
     LoaderComponent,
     CreateMatchComponent,
+    CreateMatchPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,7 @@ import { CreateMatchComponent } from './components/create-match/create-match.com
     ReactiveFormsModule,
     UserModule,
     MatchesModule,
-    UiModule
+    UiModule,
   ],
   providers: [
     UsersService,
