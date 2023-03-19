@@ -1,11 +1,14 @@
-export interface Match {
-  id: string,
-  category: string;
+export interface MatchData {
   date: Date;
   level: string;
-  paddleCourt: number;
-  signedPlayersNumber: number;
-  image: string;
+  category: string;
   allowedPlayersNumber: number;
+  signedPlayersNumber: number;
+  paddleCourt: number;
+  image: string;
+}
+
+export interface Match extends MatchData {
+  id: string;
 }
 
