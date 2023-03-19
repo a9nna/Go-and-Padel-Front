@@ -19,7 +19,6 @@ export const {
   providedIn: 'root',
 })
 export class MatchesService {
-
   public api = `${apiUrl}${matches}`;
   httpOptions = {
     headers: new HttpHeaders({
@@ -34,7 +33,6 @@ export class MatchesService {
   ) {}
 
   getMatches(): Observable<Match[]> {
-
     const req = this.http
       .get<{ matches: Match[] }>(this.api)
       .pipe(catchError(this.handleError));
@@ -69,16 +67,15 @@ export class MatchesService {
 
   createMatch(matchData: MatchData): Observable<Match[]> {
     this.uiService.showLoader();
-
     const req = this.http
       .post<MatchData>(`${this.api}${create}`, matchData, this.httpOptions)
       .pipe(catchError(this.handleError));
 
     req.subscribe(() => {
       this.uiService.hideLoader();
-    })
+    });
 
-    return this.store.select(selectMatchesState)
+    return this.store.select(selectMatchesState);
   }
 
   handleError(error: HttpErrorResponse) {

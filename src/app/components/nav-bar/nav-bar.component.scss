@@ -1,0 +1,54 @@
+@use "../../../styles/color-palette/color-palette";
+
+:host {
+  width: 100vw;
+  height: 100vh;
+}
+
+div {
+  position: fixed;
+  bottom:0px;
+  width: 100vw;
+  height: 85px;
+  background: linear-gradient(
+    15deg,
+    color-palette.$primary-color-dark 0%,
+    color-palette.$primary-color-medium-dark 50%,
+    color-palette.$primary-color-light 100%
+  );
+
+  nav {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    height: 85px;
+    padding: 10px;
+
+    .button {
+
+      &__home {
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        background-image: url("../../../utils/images/home-icon.svg");
+        background-repeat: no-repeat
+      }
+
+      &__create {
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        background-image: url("../../../utils/images/create-icon.svg");
+        background-repeat: no-repeat
+      }
+
+      &__login {
+        display: inline-block;
+        height: 50px;
+        width: 50px;
+        background-image: url("../../../utils/images/user-icon.svg");
+        background-repeat: no-repeat
+      }
+    }
+  }
+}

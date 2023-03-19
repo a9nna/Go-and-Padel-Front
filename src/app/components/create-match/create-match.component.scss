@@ -6,7 +6,7 @@
 }
 
 h1 {
-  margin-top: 50px;
+  margin-top: 135px;
   text-transform: uppercase;
   font-weight: 700;
   font-size: 25px;
@@ -17,7 +17,7 @@ form {
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 10px;
+  padding: 10px 10px 95px 10px;
   min-width: none;
   min-height: 100vh;
 
@@ -34,6 +34,11 @@ form {
       border: 1px solid color-palette.$primary-color-medium-dark;
       border-radius: 15px;
       width: 100%;
+
+      &:focus {
+        outline: none;
+        border: 1px solid color-palette.$secondary-color;
+      }
     }
     .arrow-select {
       display: inline-block;
