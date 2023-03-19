@@ -1,0 +1,65 @@
+@use "../../../styles/color-palette/color-palette";
+
+:host{
+  min-height: 100vh;
+  min-width: 100vw;
+}
+
+h1 {
+  margin-top: 50px;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 25px;
+  text-align: center;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 10px;
+  min-width: none;
+  min-height: 100vh;
+
+  label {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 20px;
+
+    input, select {
+      padding: 14px 10px 14px 10px;
+      font-size: 18px;
+      appearance: none;
+      border: 1px solid color-palette.$primary-color-medium-dark;
+      border-radius: 15px;
+      width: 100%;
+    }
+    .arrow-select {
+      display: inline-block;
+      width: 100%;
+
+      select {
+        background: url("../../../utils/images/expand-icon.svg") no-repeat;
+        background-size: 30px;
+        background-position: right 10px center;
+      }
+    }
+  }
+
+  button {
+    padding: 15px;
+    margin: 30px 0 30px 0;
+    width: 100%;
+    border-radius: 15px;
+    border: 1px solid color-palette.$primary-color-light;
+    font-size: 18px;
+    font-weight: 700;
+    background: linear-gradient(
+      15deg,
+      color-palette.$primary-color-dark 0%,
+      color-palette.$primary-color-medium-dark 50%,
+      color-palette.$primary-color-light 100%
+    );
+  }
+}
