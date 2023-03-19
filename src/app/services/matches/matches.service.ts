@@ -1,4 +1,4 @@
-import { HttpClient, type HttpErrorResponse } from '@angular/common/http';
+import { HttpClient, HttpHeaders, type HttpErrorResponse } from '@angular/common/http';
 import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { throwError } from 'rxjs/internal/observable/throwError';
@@ -12,7 +12,7 @@ import { UiService } from '../ui/ui.service';
 
 export const {
   apiUrl,
-  path: { matches, remove }
+  path: { matches, remove, create }
 } = environment as Environment;
 
 @Injectable({
@@ -20,6 +20,11 @@ export const {
 })
 export class MatchesService {
   public api = `${apiUrl}${matches}`;
+  httpOptions = {
+    headers: new HttpHeaders({
+      'Content-Type': 'application/json',
+    }),
+  };
 
   constructor(
     @Inject(HttpClient) private readonly http: HttpClient,
@@ -37,14 +42,14 @@ export class MatchesService {
         const { matches: allMatches } = matches;
 
         this.store.dispatch(loadMatches({ matches: allMatches }));
-        this.uiService.hideLoader()
+        this.uiService.hideLoader();
       },
     });
 
     return this.store.select(selectMatchesState);
   }
 
-  deleteMatch( match: Match ): Observable<Match[]> {
+  deleteMatch(match: Match): Observable<Match[]> {
     this.uiService.showLoader();
 
     const { id } = match;
@@ -53,11 +58,17 @@ export class MatchesService {
       .pipe(catchError(this.handleError));
 
     req.subscribe((data) => {
-      this.store.dispatch(deleteMatch({idMatch: data.idMatch}));
-      this.uiService.hideLoader()
-    })
+      this.store.dispatch(deleteMatch({ idMatch: data.idMatch }));
+      this.uiService.hideLoader();
+    });
 
-    return this.store.select(selectMatchesState)
+    return this.store.select(selectMatchesState);
+  }
+
+  createMatch(matchData: Match): Observable<Match> {
+    return this.http
+      .post<Match>(`${this.api}${create}`, matchData, this.httpOptions)
+      .pipe(catchError(this.handleError));
   }
 
   handleError(error: HttpErrorResponse) {

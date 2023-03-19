@@ -5,6 +5,7 @@ export interface Environment {
     loginUser: string;
     remove: string;
     matches: string;
+    create: string;
   };
 }
 
