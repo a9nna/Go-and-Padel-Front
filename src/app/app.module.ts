@@ -21,6 +21,7 @@ import { UiModule } from './store/ui/ui.module';
 import { LoaderComponent } from './components/loader/loader.component';
 import { CreateMatchComponent } from './components/create-match/create-match.component';
 import { CreateMatchPageComponent } from './components/pages/create-match-page/create-match-page.component';
+import { HeaderComponent } from './components/header/header.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +33,7 @@ import { CreateMatchPageComponent } from './components/pages/create-match-page/c
     LoaderComponent,
     CreateMatchComponent,
     CreateMatchPageComponent,
+    HeaderComponent,
   ],
   imports: [
     BrowserModule,
