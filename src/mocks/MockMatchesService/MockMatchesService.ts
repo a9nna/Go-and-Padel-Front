@@ -1,7 +1,7 @@
 import { HttpTestingController } from '@angular/common/http/testing';
 import { Injectable } from '@angular/core';
 import { type Observable, of } from 'rxjs';
-import { type Match } from 'src/app/match.model';
+import { type MatchData, type Match } from '../../app/match.model';
 import mockMatches from '../mockMatches/mockMatches';
 import mockStore from '../mockStore/mockStore';
 
@@ -23,5 +23,9 @@ export class MockMatchesService {
     const deletedMatch = of([match]);
 
     return deletedMatch
+  }
+
+  createMatch(matchData: MatchData): Observable<Match[]> {
+    return this.getMatches();
   }
 }
