@@ -25,6 +25,7 @@ export class MatchesComponent {
   ) {}
 
   getMatches() {
+
     this.matchesService.getMatches().subscribe({
       next: (allMatches) => {
         this.matches = allMatches;

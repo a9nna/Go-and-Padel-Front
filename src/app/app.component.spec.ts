@@ -5,7 +5,6 @@ import { type Observable, of } from 'rxjs';
 import { AppComponent } from './app.component';
 import { AppModule } from './app.module';
 import { LoaderComponent } from './components/loader/loader.component';
-import { UiService } from './services/ui/ui.service';
 import { selectIsLoading } from './store/ui/reducers/ui.reducers';
 
 describe('Given an App component', () => {

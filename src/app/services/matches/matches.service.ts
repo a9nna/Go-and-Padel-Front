@@ -37,8 +37,8 @@ export class MatchesService {
       .get<{ matches: Match[] }>(this.api)
       .pipe(catchError(this.handleError));
 
-    req.subscribe({
-      next: (matches) => {
+      req.subscribe({
+        next: (matches) => {
         const { matches: allMatches } = matches;
 
         this.store.dispatch(loadMatches({ matches: allMatches }));
