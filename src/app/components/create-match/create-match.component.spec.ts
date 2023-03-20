@@ -4,13 +4,13 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { Store } from '@ngrx/store';
 import { render, screen, waitFor } from '@testing-library/angular';
 import '@testing-library/jest-dom';
+import userEvent from '@testing-library/user-event';
 import { routes } from '../../app-routing.module';
 import { AppComponent } from '../../app.component';
 import { MatchesService } from '../../services/matches/matches.service';
 import { MockMatchesService } from '../../../mocks/MockMatchesService/MockMatchesService';
 import mockStore from '../../../mocks/mockStore/mockStore';
 import { CreateMatchComponent } from './create-match.component';
-import userEvent from '@testing-library/user-event';
 
 const renderComponent = async () => {
   const store = mockStore();
@@ -139,21 +139,9 @@ describe('Given a CreateMatchComponent', () => {
 
       const dateInput = screen.getByLabelText(dateText)
       const levelInput = screen.getByLabelText(levelText)
-      const levelSelect = screen.getByRole("option", {
-        name: levelSelected
-      })
       const categoryInput = screen.getByLabelText(categoryText);
-      const categorySelect = screen.getByRole("option", {
-        name: categorySelected
-      })
       const numberOfPlayersInput = screen.getByLabelText(playersText);
-      const playersSelect = screen.getAllByRole("option", {
-        name: `${playersSelected}`
-      })
       const courtInput = screen.getByLabelText(courtText);
-      const courtSelect = screen.getByRole("option", {
-        name: `${courtSelected}`
-      })
       const imageInput = screen.getByLabelText(imageText);
       const button = screen.getByRole("button", {
         name: buttonText,
