@@ -28,8 +28,8 @@ describe('Given an AuthService', () => {
       const mockId = 'token';
       const mockJson = { data: 'mockData' };
 
-      const mockSotorageSet = jest.spyOn(localStorageMock, 'setItem');
-      const mockSotorageGet = jest.spyOn(localStorageMock, 'getItem');
+      jest.spyOn(localStorageMock, 'setItem');
+      jest.spyOn(localStorageMock, 'getItem');
       const setLocalStorage = (id: string, data: localStorageStore) => {
         window.localStorage.setItem(id, JSON.stringify(data));
       };
@@ -45,8 +45,8 @@ describe('Given an AuthService', () => {
       const mockId = '1';
       const mockJson = { data: 'mockData' };
 
-      const mockSotorageSet = jest.spyOn(localStorageMock, 'setItem');
-      const mockSotorageGet = jest.spyOn(localStorageMock, 'getItem');
+      jest.spyOn(localStorageMock, 'setItem');
+      jest.spyOn(localStorageMock, 'getItem');
       const setLocalStorage = (id: string, data: localStorageStore) => {
         window.localStorage.setItem(id, JSON.stringify(data));
       };

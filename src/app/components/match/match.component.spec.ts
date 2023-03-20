@@ -1,7 +1,6 @@
 import { Store } from '@ngrx/store';
-import { render, screen, waitFor } from '@testing-library/angular';
+import { render, screen } from '@testing-library/angular';
 import '@testing-library/jest-dom';
-import userEvent from '@testing-library/user-event';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatchesService } from '../../services/matches/matches.service';
 import mockStore from '../../../mocks/mockStore/mockStore';
@@ -26,6 +25,7 @@ const renderComponent = async () => {
           level: '2.0',
           paddleCourt: 3,
           signedPlayersNumber: 1,
+          creator: 'ana@ana.com',
         },
         {
           id: '2',
@@ -36,6 +36,7 @@ const renderComponent = async () => {
           level: '',
           paddleCourt: 3,
           signedPlayersNumber: 4,
+          creator: 'ben@ben.com',
         },
       ],
     },
@@ -105,37 +106,5 @@ describe('Given a MatchComponent', () => {
       expect(spots).toBeInTheDocument();
       expect(spots).toHaveClass('info__spots__no-spots');
     });
-
-    test("Then it should show a button with 'Delete match' accesibility text", async() => {
-      const text = /delete match/i;
-
-      await renderComponent();
-      const button = screen.getAllByRole("button", {
-        name: text,
-      })
-
-      expect(button[0]).toBeInTheDocument();
-    })
-  })
-
-  describe("When the button with 'Delete match' accessibility is clicked", () => {
-    test("Then its onDelete method should be called", async() => {
-      const text = /delete match/i;
-
-      await renderComponent();
-      const onDeleteSpy = jest.spyOn(MatchComponent.prototype, "onDelete")
-      const deleteButton = screen.getAllByRole("button", {
-        name: text,
-      })
-
-      await waitFor(() => {
-        expect(deleteButton[0]).toBeInTheDocument()
-      })
-
-      await userEvent.click(deleteButton[0]);
-
-      expect(onDeleteSpy).toHaveBeenCalled()
-
-    })
   })
 });

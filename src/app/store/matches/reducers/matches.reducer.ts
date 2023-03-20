@@ -3,6 +3,7 @@ import { type Match } from 'src/app/match.model';
 import { deleteMatch, loadMatches } from '../actions/matches.actions';
 
 const initialState: Match[] = [{
+  creator: "",
   id: "",
   category: "",
   date: new Date(),

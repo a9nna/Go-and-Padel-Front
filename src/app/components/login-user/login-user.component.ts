@@ -21,7 +21,7 @@ export class LoginUserComponent {
     @Inject(FormBuilder) private readonly formBuilder: FormBuilder,
     @Inject(UsersService) private readonly usersService: UsersService,
     @Inject(TokenService) private readonly tokenService: TokenService,
-    @Inject(Router) private readonly router: Router
+    @Inject(Router) private readonly router: Router,
   ) {}
 
   onSubmit() {
@@ -35,6 +35,7 @@ export class LoginUserComponent {
       },
       error: () => {
         this.loginFailed = true;
+        this.tokenService.failedSession();
       },
     });
   }

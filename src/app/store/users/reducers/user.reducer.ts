@@ -4,6 +4,7 @@ import { type UserState } from '../../../user.model';
 
 export const initialState: UserState = {
   token: '',
+  email: '',
   isLogged: false,
 };
 
@@ -16,11 +17,12 @@ export const usersFeature = createFeature({
       (state, { user }): UserState => ({
         ...state,
         token: user.token,
+        email: user.email,
         isLogged: true,
       })
     )
   ),
 });
 
-export const { name, reducer, selectIsLogged, selectToken, selectUserState } =
+export const { name, reducer, selectIsLogged, selectToken, selectUserState, selectEmail } =
   usersFeature;

@@ -1,5 +1,6 @@
 export interface User {
   token: string;
+  email: string;
 }
 
 export interface UserState extends User {

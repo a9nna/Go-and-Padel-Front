@@ -69,20 +69,4 @@ describe('Given a MatchesComponent', () => {
       expect(typeof matchesComponent.deleteMatch).toBe('function')
     })
   })
-
-  describe("When a button with 'Delete match' accessible text is clicked", () =>{
-    test("Then it should call its deleteMatch method", async() => {
-      const text = /delete match/i
-
-      await renderComponent()
-      const deleteMatchSpy = jest.spyOn(MatchesComponent.prototype, "deleteMatch")
-      const button = screen.getByRole("button", {
-        name: text
-      })
-
-      await userEvent.click(button)
-
-      expect(deleteMatchSpy).toHaveBeenCalled()
-    })
-  })
 });

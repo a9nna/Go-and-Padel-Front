@@ -8,6 +8,7 @@ describe('Given the matchesFeature', () => {
       const action = loadMatches;
       const initialState: Match[] = [];
       const firstMatch: Match = {
+        creator: "ana",
         id: "",
         category: '',
         date: new Date('1995-12-17T03:24:00'),
@@ -18,6 +19,7 @@ describe('Given the matchesFeature', () => {
         allowedPlayersNumber: 4,
       };
       const secondMatch: Match = {
+        creator: "ben",
         id: "",
         category: '',
         date: new Date('1995-12-17T03:37:00'),
@@ -40,6 +42,7 @@ describe('Given the matchesFeature', () => {
     test("Then it should return the new state with the current list without de selected match", () => {
       const action = deleteMatch;
       const firstMatch: Match = {
+        creator: "ana",
         id: "1",
         category: '',
         date: new Date('1995-12-17T03:24:00'),
@@ -50,6 +53,7 @@ describe('Given the matchesFeature', () => {
         allowedPlayersNumber: 4,
       };
       const secondMatch: Match = {
+        creator: "ben",
         id: "2",
         category: '',
         date: new Date('1995-12-17T03:37:00'),
