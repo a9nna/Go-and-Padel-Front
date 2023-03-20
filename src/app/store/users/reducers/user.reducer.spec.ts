@@ -8,14 +8,17 @@ describe('Given the feature reducer', () => {
       const action = loginUser;
       const initialState: UserState = {
         token: '',
+        email: "",
         isLogged: false,
       };
 
       const user: User = {
         token: 'nsia721noiasmña',
+        email: "user@user.com"
       };
       const expectedNewState: UserState = {
         token: 'nsia721noiasmña',
+        email: "user@user.com",
         isLogged: true,
       };
 

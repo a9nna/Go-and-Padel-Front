@@ -1,5 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
-import { type Match } from 'src/app/match.model';
+import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
+import { Store } from '@ngrx/store';
+import { type Observable } from 'rxjs';
+import { type Match } from '../../match.model';
+import { selectEmail } from '../../store/users/reducers/user.reducer';
 
 @Component({
   selector: 'app-match',
@@ -11,6 +14,12 @@ export class MatchComponent {
   @Output() matchToDelete = new EventEmitter<Match>();
 
   deleteAriaLabel = 'Delete match';
+
+  email$: Observable<string> = this.store.select(selectEmail)
+
+  constructor(
+    @Inject(Store) private readonly store: Store
+  ){}
 
   onDelete(match: Match) {
     this.matchToDelete.emit(match);

@@ -10,6 +10,7 @@ import { MatchesService } from '../../services/matches/matches.service';
 export class MatchesComponent {
   matches: Match[] = [];
   match: Match = {
+    creator: "",
     allowedPlayersNumber: 0,
     category: "",
     date: new Date(),
@@ -25,7 +26,6 @@ export class MatchesComponent {
   ) {}
 
   getMatches() {
-
     this.matchesService.getMatches().subscribe({
       next: (allMatches) => {
         this.matches = allMatches;

@@ -33,15 +33,18 @@ export class MatchesService {
   ) {}
 
   getMatches(): Observable<Match[]> {
-    const req = this.http
-      .get<{ matches: Match[] }>(this.api)
-      .pipe(catchError(this.handleError));
+    this.uiService.showLoader()
 
-      req.subscribe({
-        next: (matches) => {
+    const req = this.http
+    .get<{ matches: Match[] }>(this.api)
+    .pipe(catchError(this.handleError));
+
+    req.subscribe({
+      next: (matches) => {
         const { matches: allMatches } = matches;
 
         this.store.dispatch(loadMatches({ matches: allMatches }));
+
         this.uiService.hideLoader();
       },
     });

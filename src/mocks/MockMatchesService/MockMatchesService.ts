@@ -19,12 +19,6 @@ export class MockMatchesService {
     return matches;
   }
 
-  deleteMatch(match: Match): Observable<Match[]> {
-    const deletedMatch = of([match]);
-
-    return deletedMatch
-  }
-
   createMatch(matchData: MatchData): Observable<Match[]> {
     return this.getMatches();
   }

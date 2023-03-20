@@ -1,4 +1,5 @@
 export interface MatchData {
+  creator: string,
   date: Date;
   level: string;
   category: string;
