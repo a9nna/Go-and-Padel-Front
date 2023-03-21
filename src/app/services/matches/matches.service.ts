@@ -76,7 +76,6 @@ export class MatchesService {
 
     req.subscribe(() => {
       (async () => this.router.navigate(['']))();
-      this.uiService.hideLoader();
     });
 
     return this.store.select(selectMatchesState);
