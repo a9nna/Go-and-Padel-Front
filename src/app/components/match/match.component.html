@@ -22,10 +22,8 @@
     </div>
   </div>
   <div class="actions" *ngIf="email$ | async as email">
-    <ng-template *ngIf="email === match.creator">
-      <button class="actions__edit" (click)="onDelete(match)" [attr.aria-label]=deleteAriaLabel >
+      <button class="actions__edit" (click)="onDelete(match)" [attr.aria-label]=deleteAriaLabel *ngIf="email === match.creator">
         <i></i>
       </button>
-    </ng-template>
   </div>
 </article>

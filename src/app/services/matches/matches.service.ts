@@ -9,6 +9,7 @@ import { type Environment } from 'src/types';
 import { deleteMatch, loadMatches } from '../../store/matches/actions/matches.actions';
 import { selectMatchesState } from '../../store/matches/reducers/matches.reducer';
 import { UiService } from '../ui/ui.service';
+import { Router } from '@angular/router';
 
 export const {
   apiUrl,
@@ -29,22 +30,21 @@ export class MatchesService {
   constructor(
     @Inject(HttpClient) private readonly http: HttpClient,
     @Inject(Store) private readonly store: Store,
-    @Inject(UiService) private readonly uiService: UiService
+    @Inject(UiService) private readonly uiService: UiService,
+    @Inject(Router) private readonly router: Router
   ) {}
 
   getMatches(): Observable<Match[]> {
-    this.uiService.showLoader()
-
+    this.uiService.showLoader();
     const req = this.http
-    .get<{ matches: Match[] }>(this.api)
-    .pipe(catchError(this.handleError));
+      .get<{ matches: Match[] }>(this.api)
+      .pipe(catchError(this.handleError));
 
     req.subscribe({
       next: (matches) => {
         const { matches: allMatches } = matches;
 
         this.store.dispatch(loadMatches({ matches: allMatches }));
-
         this.uiService.hideLoader();
       },
     });
@@ -75,6 +75,7 @@ export class MatchesService {
       .pipe(catchError(this.handleError));
 
     req.subscribe(() => {
+      (async () => this.router.navigate(['']))();
       this.uiService.hideLoader();
     });
 
