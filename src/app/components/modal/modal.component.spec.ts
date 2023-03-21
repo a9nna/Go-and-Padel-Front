@@ -1,6 +1,10 @@
+import { Store } from "@ngrx/store";
 import { provideMockStore } from "@ngrx/store/testing";
 import { render, screen } from "@testing-library/angular";
 import '@testing-library/jest-dom';
+import userEvent from "@testing-library/user-event";
+import mockStore from "../../../mocks/mockStore/mockStore";
+import { UiService } from "../../services/ui/ui.service";
 import { selectIsError } from '../../store/ui/reducers/ui.reducers';
 import { ModalComponent } from "./modal.component";
 
@@ -40,4 +44,30 @@ describe("Given a ModalComponent", () => {
       expect(message).toBeInTheDocument();
     });
   });
+
+  describe("When it press the button with 'continue' text", () => {
+    test.only("Then it should call its onHide method", async () => {
+      const mockUiService = {
+        hideModal: jest.fn()
+      };
+      const store = mockStore();
+      const text = "continue"
+
+      await render(ModalComponent, {
+        providers: [
+          { provider: UiService, useValue: mockUiService},
+          { provide: Store, useValue: store}
+        ]
+      })
+
+      const onHideSpy = jest.spyOn(ModalComponent.prototype, "onHide")
+      const button = screen.getByRole("button",{
+        name: text
+      })
+
+      await userEvent.click(button)
+
+      expect(onHideSpy).toHaveBeenCalled();
+    })
+  })
 })
