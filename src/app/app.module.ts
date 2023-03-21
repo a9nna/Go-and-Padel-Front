@@ -24,6 +24,7 @@ import { CreateMatchPageComponent } from './components/pages/create-match-page/c
 import { HeaderComponent } from './components/header/header.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ModalComponent } from './components/modal/modal.component';
+import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { ModalComponent } from './components/modal/modal.component';
     HeaderComponent,
     NavBarComponent,
     ModalComponent,
+    NotFoundPageComponent,
   ],
   imports: [
     BrowserModule,
