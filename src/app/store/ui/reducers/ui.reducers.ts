@@ -1,6 +1,6 @@
 import { createFeature, createReducer, on } from "@ngrx/store";
 import { type UiState } from "src/app/ui.model";
-import { hideLoading, hideModal, showLoading, showModalSuccess} from '../actions/ui.actions';
+import { hideLoading, hideModal, showLoading, showModalError, showModalSuccess} from '../actions/ui.actions';
 
 const initialState: UiState = {
   isLoading: false,
@@ -28,6 +28,11 @@ export const uiFeature = createFeature({
     on(hideModal, (state): UiState => ({
       ...state,
       isModal: false,
+    })),
+    on(showModalError, (state): UiState => ({
+      ...state,
+      isModal: true,
+      isError: true
     }))
   )
 })
