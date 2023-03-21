@@ -1,7 +1,6 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
-import { Store } from '@ngrx/store';
 import { render, screen, waitFor } from '@testing-library/angular';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
@@ -9,11 +8,11 @@ import { routes } from '../../app-routing.module';
 import { AppComponent } from '../../app.component';
 import { MatchesService } from '../../services/matches/matches.service';
 import { MockMatchesService } from '../../../mocks/MockMatchesService/MockMatchesService';
-import mockStore from '../../../mocks/mockStore/mockStore';
 import { CreateMatchComponent } from './create-match.component';
+import { provideMockStore } from '@ngrx/store/testing';
+import { selectEmail } from '../../store/users/reducers/user.reducer';
 
 const renderComponent = async () => {
-  const store = mockStore();
   const matchesService = new MockMatchesService()
 
   await render(CreateMatchComponent, {
@@ -28,12 +27,14 @@ const renderComponent = async () => {
       { provide: MatchesService, useValue: matchesService },
       HttpClientTestingModule,
       FormBuilder,
-      { provide: Store, useValue: store },
       { provide: String, useValue: 'stringValue' },
+      provideMockStore({
+        selectors: [{selector:selectEmail, value: "ana@ana.com"}]
+      })
     ],
   });
 
-  return { store, matchesService };
+  return { matchesService };
 };
 
 describe('Given a CreateMatchComponent', () => {

@@ -2,7 +2,7 @@ import { Component, EventEmitter, Inject, Input, Output } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { type Observable } from 'rxjs';
 import { type Match } from '../../match.model';
-import { selectEmail } from '../../store/users/reducers/user.reducer';
+import { selectEmail} from '../../store/users/reducers/user.reducer';
 
 @Component({
   selector: 'app-match',
