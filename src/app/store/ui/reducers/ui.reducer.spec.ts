@@ -1,5 +1,5 @@
 import { type UiState } from "src/app/ui.model"
-import { hideLoading, hideModal, showLoading, showModalSuccess } from '../actions/ui.actions';
+import { hideLoading, hideModal, showLoading, showModalError, showModalSuccess } from '../actions/ui.actions';
 import { reducer } from "./ui.reducers"
 
 describe("Given a uiFeature", () => {
@@ -77,6 +77,26 @@ describe("Given a uiFeature", () => {
       }
 
       const newState = reducer(initialState, hideModal());
+
+      expect(newState).toStrictEqual(expectedState);
+    })
+  })
+
+  describe("When it receives an initial state with isModal setted on false and showModalError action", () => {
+    test("Then it should return new state with isModall and isError setted on true", () => {
+      const initialState: UiState = {
+        isModal: false,
+        isLoading: false,
+        isError: false
+      }
+
+      const expectedState: UiState = {
+        isModal: true,
+        isLoading: false,
+        isError: true
+      }
+
+      const newState = reducer(initialState, showModalError());
 
       expect(newState).toStrictEqual(expectedState);
     })
