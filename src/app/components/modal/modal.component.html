@@ -1,5 +1,14 @@
-<div class="success">
-  <i></i>
-  <span class="success__message" >Missión successful!</span>
-  <button>continue</button>
+<div class="container">
+  <div class="error" *ngIf="error$ | async else error">
+    <i></i>
+    <span class="error__message" >Mission failed!</span>
+    <button>continue</button>
+  </div>
+  <ng-template #error>
+    <div class="success">
+      <i></i>
+      <span class="success__message">Mission successful!</span>
+      <button>continue</button>
+    </div>
+  </ng-template>
 </div>

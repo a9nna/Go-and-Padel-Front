@@ -46,7 +46,10 @@ export class MatchesService {
 
         this.store.dispatch(loadMatches({ matches: allMatches }));
         this.uiService.hideLoader();
-      },
+      },error: () => {
+        this.uiService.hideLoader();
+        this.uiService.showModalError();
+      }
     });
 
     return this.store.select(selectMatchesState);
@@ -60,11 +63,14 @@ export class MatchesService {
       .delete<{ idMatch: string }>(`${this.api}${remove}${id}`)
       .pipe(catchError(this.handleError));
 
-    req.subscribe((data) => {
+    req.subscribe({next: (data) => {
       this.store.dispatch(deleteMatch({ idMatch: data.idMatch }));
       this.uiService.showModalSuccess();
       this.uiService.hideLoader();
-    });
+    }, error: () => {
+      this.uiService.hideLoader();
+      this.uiService.showModalError();
+    }});
 
     return this.store.select(selectMatchesState);
   }
@@ -75,10 +81,13 @@ export class MatchesService {
       .post<MatchData>(`${this.api}${create}`, matchData, this.httpOptions)
       .pipe(catchError(this.handleError));
 
-    req.subscribe(() => {
+    req.subscribe({next: () => {
       (async () => this.router.navigate(['']))();
       this.uiService.showModalSuccess();
-    });
+    }, error: () => {
+      this.uiService.hideLoader();
+      this.uiService.showModalError();
+    }});
 
     return this.store.select(selectMatchesState);
   }
