@@ -1,0 +1,35 @@
+@use "../../../../styles/color-palette/color-palette";
+
+:host {
+  min-height: 100vh;
+  width: 100vw;
+}
+
+.container {
+  min-height: 100vh;
+  width: 100vw;
+  background-color: color-palette.$primary-color-dark;
+}
+
+.error {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: absolute;
+  top:50%;
+  left:50%;
+  transform: translate(-50%,-50%);
+  width: 100vw;
+  i {
+    display: inline-block;
+    height: 135px;
+    width: 200px;
+    background-image: url("../../../../utils/images/404.svg");
+  }
+
+  span {
+    font-weight: bold;
+    font-size: 40px;
+    color: color-palette.$secondary-color;
+  }
+}
