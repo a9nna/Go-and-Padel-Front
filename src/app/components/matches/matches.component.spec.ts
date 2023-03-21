@@ -1,6 +1,5 @@
-import { render, screen } from '@testing-library/angular';
+import { render } from '@testing-library/angular';
 import { Store } from '@ngrx/store';
-import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { MatchesService } from '../../services/matches/matches.service';
 import { MockMatchesService } from '../../../mocks/MockMatchesService/MockMatchesService';
