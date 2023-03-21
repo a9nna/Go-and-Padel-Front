@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { hideLoading, showLoading } from '../../store/ui/actions/ui.actions';
+import { hideLoading, showLoading, showModalSuccess } from '../../store/ui/actions/ui.actions';
 import { selectIsLoading } from '../../store/ui/reducers/ui.reducers';
 
 @Injectable({
@@ -19,5 +19,9 @@ export class UiService {
 
   hideLoader() {
     this.store.dispatch(hideLoading());
+  }
+
+  showModalSuccess() {
+    this.store.dispatch(showModalSuccess());
   }
 }

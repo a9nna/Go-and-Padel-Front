@@ -62,6 +62,7 @@ export class MatchesService {
 
     req.subscribe((data) => {
       this.store.dispatch(deleteMatch({ idMatch: data.idMatch }));
+      this.uiService.showModalSuccess();
       this.uiService.hideLoader();
     });
 
@@ -76,6 +77,7 @@ export class MatchesService {
 
     req.subscribe(() => {
       (async () => this.router.navigate(['']))();
+      this.uiService.showModalSuccess();
     });
 
     return this.store.select(selectMatchesState);
