@@ -23,6 +23,7 @@ import { CreateMatchComponent } from './components/create-match/create-match.com
 import { CreateMatchPageComponent } from './components/pages/create-match-page/create-match-page.component';
 import { HeaderComponent } from './components/header/header.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
+import { ModalComponent } from './components/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
     CreateMatchPageComponent,
     HeaderComponent,
     NavBarComponent,
+    ModalComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,0 +1,48 @@
+@use "../../../styles/color-palette/color-palette";
+
+:host {
+  min-height: 100vh;
+  width: 100vw;
+}
+
+div {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  position:absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  height: 300px;
+  width: 80%;
+  border: 2px solid black;
+  border-radius: 15px;
+}
+
+.success {
+  background-color: color-palette.$success-color;
+
+  i {
+    width: 50px;
+    height: 50px;
+    background-image: url("../../../utils/images/success-icon.svg");
+  }
+
+  span {
+    text-transform: uppercase;
+    text-align: center;
+    font-weight: 700;
+    font-size: 30px;
+  }
+
+  button {
+    height: 45px;
+    width: 175px;
+    font-weight: 700;
+    background-color: #fff;
+    border: 1px solid #000;
+    border-radius: 15px;
+  }
+}
+
