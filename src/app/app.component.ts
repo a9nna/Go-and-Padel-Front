@@ -3,7 +3,7 @@ import { Component, Inject } from '@angular/core';
 import { Store } from '@ngrx/store';
 import decodeToken from "jwt-decode";
 import { type Observable } from 'rxjs';
-import { selectIsLoading } from './store/ui/reducers/ui.reducers';
+import { selectIsLoading, selectIsModal } from './store/ui/reducers/ui.reducers';
 import { loginUser } from './store/users/actions/user.actions';
 import { type User } from './user.model';
 
@@ -14,6 +14,7 @@ import { type User } from './user.model';
 })
 export class AppComponent {
   isLoading$: Observable<boolean> = this.store.select(selectIsLoading);
+  isModal$: Observable<boolean> = this.store.select(selectIsModal)
 
   constructor(
     @Inject(Store) private readonly store: Store,

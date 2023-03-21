@@ -1,8 +1,9 @@
 <app-loader *ngIf="isLoading$ | async "></app-loader>
 <ng-container *ngIf="(isLoading$ | async) === false">
-<app-header></app-header>
+  <app-header></app-header>
 </ng-container>
 <router-outlet></router-outlet>
 <ng-container *ngIf="(isLoading$ | async) === false">
-<app-nav-bar></app-nav-bar>
+  <app-nav-bar></app-nav-bar>
 </ng-container>
+<app-modal *ngIf="isModal$ | async"></app-modal>

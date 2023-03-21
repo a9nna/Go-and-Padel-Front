@@ -38,30 +38,30 @@ describe('Given an App component', () => {
       expect(loading).toBeInTheDocument()
     })
 
-      test("Then it should check the localStorage for a token", async() => {
-        const mockId = 'token';
-        const mockJson = {
-          data: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDA3MzQ5MjU0ODYxMjE5MzE0YTY4OTYiLCJlbWFpbCI6ImFuYUBhbmEuY29tIiwiaWF0IjoxNjc5MzM2MDU3fQ.kI41DpVVl4CUL9MdPtJLH8mGTHQi97kqCJ2wKjvzDv4',
-        };
-        const store = mockStore();
+    test("Then it should check the localStorage for a token", async() => {
+      const mockId = 'token';
+      const mockJson = {
+        data: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDA3MzQ5MjU0ODYxMjE5MzE0YTY4OTYiLCJlbWFpbCI6ImFuYUBhbmEuY29tIiwiaWF0IjoxNjc5MzM2MDU3fQ.kI41DpVVl4CUL9MdPtJLH8mGTHQi97kqCJ2wKjvzDv4',
+      };
+      const store = mockStore();
 
-        jest.spyOn(localStorageMock, 'setItem');
-        jest.spyOn(localStorageMock, 'getItem');
-        const setLocalStorage = (id: string, data: localStorageStore) => {
-          window.localStorage.setItem(id, JSON.stringify(data));
-        };
+      jest.spyOn(localStorageMock, 'setItem');
+      jest.spyOn(localStorageMock, 'getItem');
+      const setLocalStorage = (id: string, data: localStorageStore) => {
+        window.localStorage.setItem(id, JSON.stringify(data));
+      };
 
-        setLocalStorage(mockId, mockJson);
+      setLocalStorage(mockId, mockJson);
 
-        await render(AppComponent, {
-          imports: [AppModule],
-          declarations: [LoaderComponent],
-          providers: [
-            { provider: Store, useValue: store }
-          ],
-        });
+      await render(AppComponent, {
+        imports: [AppModule],
+        declarations: [LoaderComponent],
+        providers: [
+          { provider: Store, useValue: store }
+        ],
+      });
 
-        expect(localStorageMock.setItem).toHaveBeenCalled()
+      expect(localStorageMock.setItem).toHaveBeenCalled()
     })
   });
 });
