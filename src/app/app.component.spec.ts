@@ -10,6 +10,10 @@ import { LoaderComponent } from './components/loader/loader.component';
 import { selectIsLoading } from './store/ui/reducers/ui.reducers';
 import { type Store as localStorageStore } from 'src/types';
 import mockStore from '../mocks/mockStore/mockStore';
+import { routes } from './app-routing.module';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { LoginUserComponent } from './components/login-user/login-user.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 describe('Given an App component', () => {
   const isLoading$: Observable<boolean> = of(true);
@@ -63,5 +67,77 @@ describe('Given an App component', () => {
 
       expect(localStorageMock.setItem).toHaveBeenCalled()
     })
+  });
+
+  describe("When navigates to '/create-match'", () => {
+    test("Then it should show heading with 'Create a match'", async() => {
+      const text = 'Create a match';
+
+      const { navigate } = await render(AppComponent, {
+        declarations: [LoaderComponent],
+        imports: [HttpClientTestingModule],
+        routes,
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLoading, value: isLoading$ }],
+          }),
+          HttpClientTestingModule
+        ],
+      });
+
+      await navigate('/create-match')
+      const title = screen.getByRole("heading", {
+        name: text,
+        level: 1
+      })
+
+      expect(title).toBeInTheDocument();
+    })
+  })
+
+  describe("When navigates to '/login'", () => {
+    test("Then it should show an input with 'Email' text", async () => {
+      const emailText = 'Email';
+
+      const { navigate } = await render(AppComponent, {
+        declarations: [LoaderComponent, LoginUserComponent],
+        imports: [HttpClientTestingModule, ReactiveFormsModule],
+        routes,
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLoading, value: isLoading$ }],
+          }),
+          HttpClientTestingModule,
+        ],
+      });
+
+      await navigate('/login');
+      const emailInput = screen.getByLabelText(emailText);
+
+      expect(emailInput).toBeInTheDocument();
+    });
+  });
+
+  describe("When navigates to '/abcdefg'", () => {
+    test("Then it should show the text 'Page not found'", async () => {
+      const text = /page not found/i;
+
+      const { navigate } = await render(AppComponent, {
+        declarations: [LoaderComponent],
+        imports: [HttpClientTestingModule],
+        routes,
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectIsLoading, value: isLoading$ }],
+          }),
+          HttpClientTestingModule,
+        ],
+      });
+
+      await navigate('/abcdefg');
+      const title = screen.getByText(text);
+
+      expect(title).toBeInTheDocument();
+    });
   });
 });
