@@ -4,7 +4,7 @@
       <img *ngIf="match.image.split('upload/').pop()" ngSrc="{{match.image.split('upload/').pop()}}" alt="Paddle court image" width="280" height="280" priority=""/>
     </div>
     <ng-template #noPriority>
-      <img *ngIf="match.image.split('upload/').pop()" ngSrc="{{match.image.split('upload/').pop()}}" alt="Paddle court image" width="280" height="280" />
+      <img *ngIf="match.image.split('upload/').pop()" ngSrc="{{match.image.split('upload/').pop()}}" alt="Paddle court image" width="280" height="280" loading="lazy"/>
     </ng-template>
     <div class="info">
       <div class="info__date">

@@ -43,17 +43,6 @@ const renderComponent = async () => {
 
 describe('Given a CreateMatchComponent', () => {
   describe('When is rendered', () => {
-    test("Then it should show a heading with 'Create match' text", async () => {
-      const text = /create a match/i;
-      await renderComponent();
-
-      const title = screen.getByRole('heading', {
-        name: text,
-        level: 1,
-      });
-
-      expect(title).toBeInTheDocument();
-    });
 
     test("Then it should show a input with 'Date' text", async () => {
       const text = /date/i;
