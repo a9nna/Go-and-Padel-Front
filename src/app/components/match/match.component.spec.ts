@@ -128,4 +128,37 @@ describe('Given a MatchComponent', () => {
       expect(spy).toHaveBeenCalled()
     })
   })
+
+  describe("When the onDetail method is called", () => {
+    test("Then it type must be function", async () => {
+      await render(MatchComponent, {
+        componentProperties: {
+          match: {
+              id: '1',
+              allowedPlayersNumber: 4,
+              category: 'mixt',
+              date: new Date('2023-03-07T13:00:00.000+00:00'),
+              image: '',
+              level: '2.0',
+              paddleCourt: 3,
+              signedPlayersNumber: 1,
+              creator: 'ana@ana.com',
+            },
+        },
+        providers: [
+          provideMockStore({
+            selectors: [{ selector: selectEmail, value: 'ana@ana.com' }],
+          }),
+        ],
+      });
+
+      const article = screen.getByRole("article");
+      const onDetailSpy = jest.spyOn(MatchComponent.prototype, "onDetail");
+      await userEvent.click(article)
+
+      await waitFor(() => {
+        expect(onDetailSpy).toHaveBeenCalled();
+      })
+    })
+  })
 });
