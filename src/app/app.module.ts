@@ -25,7 +25,6 @@ import { HeaderComponent } from './components/header/header.component';
 import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
-import { DetailMatchComponent } from './components/detail-match/detail-match.component';
 import { MatchModule } from './store/match/match.module';
 
 @NgModule({
@@ -42,7 +41,6 @@ import { MatchModule } from './store/match/match.module';
     NavBarComponent,
     ModalComponent,
     NotFoundPageComponent,
-    DetailMatchComponent,
   ],
   imports: [
     BrowserModule,
@@ -56,7 +54,7 @@ import { MatchModule } from './store/match/match.module';
     UserModule,
     MatchesModule,
     UiModule,
-    MatchModule
+    MatchModule,
   ],
   providers: [
     UsersService,
