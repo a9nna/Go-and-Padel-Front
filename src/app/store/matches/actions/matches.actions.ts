@@ -9,4 +9,4 @@ export const loadMatches = createAction(
 export const deleteMatch = createAction(
   '[Matches] Delete Match',
   props<{ idMatch: string }>()
-)
+);
