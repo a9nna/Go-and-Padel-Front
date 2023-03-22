@@ -8,6 +8,7 @@ import { selectEmail} from '../../store/users/reducers/user.reducer';
   selector: 'app-match',
   templateUrl: './match.component.html',
   styleUrls: ['./match.component.scss'],
+
 })
 export class MatchComponent {
   @Input() match: Match = {
