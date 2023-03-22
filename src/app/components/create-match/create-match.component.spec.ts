@@ -4,13 +4,17 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { render, screen, waitFor } from '@testing-library/angular';
 import '@testing-library/jest-dom';
 import userEvent from '@testing-library/user-event';
+import { Store, StoreModule } from '@ngrx/store';
+import { provideMockStore } from '@ngrx/store/testing';
 import { routes } from '../../app-routing.module';
 import { AppComponent } from '../../app.component';
 import { MatchesService } from '../../services/matches/matches.service';
 import { MockMatchesService } from '../../../mocks/MockMatchesService/MockMatchesService';
 import { CreateMatchComponent } from './create-match.component';
-import { provideMockStore } from '@ngrx/store/testing';
-import { selectEmail } from '../../store/users/reducers/user.reducer';
+import { reducer, selectEmail } from '../../store/users/reducers/user.reducer';
+import { localStorageMock } from '../../../mocks/mockLocalStorege/mockLocalStorage';
+import mockStore from '../../../mocks/mockStore/mockStore';
+import { type Store as localStorageStore } from 'src/types';
 
 const renderComponent = async () => {
   const matchesService = new MockMatchesService()
@@ -38,84 +42,114 @@ const renderComponent = async () => {
 };
 
 describe('Given a CreateMatchComponent', () => {
-  describe("When is rendered", () => {
-    test("Then it should show a heading with 'Create match' text", async() => {
+  describe('When is rendered', () => {
+    test("Then it should show a heading with 'Create match' text", async () => {
       const text = /create a match/i;
       await renderComponent();
 
-      const title = screen.getByRole("heading", {
+      const title = screen.getByRole('heading', {
         name: text,
-        level: 1
-      })
+        level: 1,
+      });
 
       expect(title).toBeInTheDocument();
-    })
+    });
 
-    test("Then it should show a input with 'Date' text", async() => {
+    test("Then it should show a input with 'Date' text", async () => {
       const text = /date/i;
       await renderComponent();
 
-      const dayInput = screen.getByLabelText(text)
+      const dayInput = screen.getByLabelText(text);
 
       expect(dayInput).toBeInTheDocument();
-    })
+    });
 
-    test("Then it should show a input with 'Level' text", async() => {
+    test("Then it should show a input with 'Level' text", async () => {
       const text = /level/i;
       await renderComponent();
 
-      const levelInput = screen.getByLabelText(text)
+      const levelInput = screen.getByLabelText(text);
 
       expect(levelInput).toBeInTheDocument();
-    })
+    });
 
-    test("Then it should show a input with 'Category' text", async() => {
+    test("Then it should show a input with 'Category' text", async () => {
       const text = /category/i;
       await renderComponent();
 
-      const categoryInput = screen.getByLabelText(text)
+      const categoryInput = screen.getByLabelText(text);
 
       expect(categoryInput).toBeInTheDocument();
-    })
+    });
 
-    test("Then it should show a input with 'Number of players' text", async() => {
+    test("Then it should show a input with 'Number of players' text", async () => {
       const text = /number of players/i;
       await renderComponent();
 
-      const numberOfPlayersInput = screen.getByLabelText(text)
+      const numberOfPlayersInput = screen.getByLabelText(text);
 
       expect(numberOfPlayersInput).toBeInTheDocument();
-    })
+    });
 
-    test("Then it should show a input with 'Court' text", async() => {
+    test("Then it should show a input with 'Court' text", async () => {
       const text = /court/i;
       await renderComponent();
 
-      const courtInput = screen.getByLabelText(text)
+      const courtInput = screen.getByLabelText(text);
 
       expect(courtInput).toBeInTheDocument();
-    })
+    });
 
-    test("Then it should show a input with 'Image' text", async() => {
+    test("Then it should show a input with 'Image' text", async () => {
       const text = /image/i;
       await renderComponent();
 
-      const imageInput = screen.getByLabelText(text)
+      const imageInput = screen.getByLabelText(text);
 
       expect(imageInput).toBeInTheDocument();
-    })
+    });
 
-    test("Then it should show a button with 'Create a match' text", async() => {
+    test("Then it should show a button with 'Create a match' text", async () => {
       const text = /create a match/i;
       await renderComponent();
 
-      const button = screen.getByRole("button", {
+      const button = screen.getByRole('button', {
         name: text,
-      })
+      });
 
       expect(button).toBeInTheDocument();
-    })
-  })
+    });
+
+    test('Then it should check if a token exists when ngOnInit method is called', async () => {
+      const mockId = 'token';
+      const mockJson = {
+        data: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiI2NDA3MzQ5MjU0ODYxMjE5MzE0YTY4OTYiLCJlbWFpbCI6ImFuYUBhbmEuY29tIiwiaWF0IjoxNjc5MzM2MDU3fQ.kI41DpVVl4CUL9MdPtJLH8mGTHQi97kqCJ2wKjvzDv4',
+      };
+      const store = mockStore();
+
+      jest.spyOn(localStorageMock, 'setItem');
+      jest.spyOn(localStorageMock, 'getItem');
+      const setLocalStorage = (id: string, data: localStorageStore) => {
+        window.localStorage.setItem(id, JSON.stringify(data));
+      };
+
+      setLocalStorage(mockId, mockJson);
+
+      await render(CreateMatchComponent, {
+        imports: [
+          HttpClientTestingModule,
+          StoreModule.forRoot({ users: reducer }, {}),
+          ReactiveFormsModule
+        ],
+        providers: [
+          { provider: Store, useValue: store },
+          HttpClientTestingModule,
+        ],
+      });
+
+      expect(localStorageMock.getItem).toHaveBeenCalled();
+    });
+  });
 
   describe("When the 'Create a match' button is clicked", () => {
     test("Then it should invoke its onSubmit method", async() => {

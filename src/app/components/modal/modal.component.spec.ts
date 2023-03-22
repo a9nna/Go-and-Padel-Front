@@ -46,7 +46,7 @@ describe("Given a ModalComponent", () => {
   });
 
   describe("When it press the button with 'continue' text", () => {
-    test.only("Then it should call its onHide method", async () => {
+    test("Then it should call its onHide method", async () => {
       const mockUiService = {
         hideModal: jest.fn()
       };
