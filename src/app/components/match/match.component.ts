@@ -10,16 +10,25 @@ import { selectEmail} from '../../store/users/reducers/user.reducer';
   styleUrls: ['./match.component.scss'],
 })
 export class MatchComponent {
-  @Input() allMatches: Match[] = [];
+  @Input() match: Match = {
+    creator: '',
+    allowedPlayersNumber: 0,
+    category: '',
+    date: new Date(),
+    id: '',
+    image: '',
+    level: '',
+    paddleCourt: 1,
+    signedPlayersNumber: 0,
+  };
+
   @Output() matchToDelete = new EventEmitter<Match>();
 
   deleteAriaLabel = 'Delete match';
 
-  email$: Observable<string> = this.store.select(selectEmail)
+  email$: Observable<string> = this.store.select(selectEmail);
 
-  constructor(
-    @Inject(Store) private readonly store: Store
-  ){}
+  constructor(@Inject(Store) private readonly store: Store) {}
 
   onDelete(match: Match) {
     this.matchToDelete.emit(match);

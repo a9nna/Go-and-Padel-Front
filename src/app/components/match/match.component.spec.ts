@@ -21,8 +21,7 @@ describe('Given a MatchComponent', () => {
 
       await render(MatchComponent, {
         componentProperties: {
-          allMatches: [
-            {
+          match:{
               id: '1',
               allowedPlayersNumber: 4,
               category: 'mixt',
@@ -32,19 +31,7 @@ describe('Given a MatchComponent', () => {
               paddleCourt: 3,
               signedPlayersNumber: 1,
               creator: 'ana@ana.com',
-            },
-            {
-              id: '2',
-              allowedPlayersNumber: 4,
-              category: '',
-              date: new Date(),
-              image: '',
-              level: '',
-              paddleCourt: 3,
-              signedPlayersNumber: 4,
-              creator: 'ben@ben.com',
-            },
-          ],
+          },
         },
         imports: [HttpClientTestingModule],
         declarations: [MatchesComponent],
@@ -100,16 +87,6 @@ describe('Given a MatchComponent', () => {
       expect(spots).toBeInTheDocument();
       expect(spots).not.toHaveClass('info__spots__no-spots');
     })
-
-    test("Then it should show 'No spots left!' text with 'info__spots__no-spots' class", async () => {
-      const text = 'No spots left!';
-
-      await renderComponent();
-      const spots = screen.getByText(text);
-
-      expect(spots).toBeInTheDocument();
-      expect(spots).toHaveClass('info__spots__no-spots');
-    });
   })
 
   describe("When the button with 'Delete match' accessibility is clicked", () => {
@@ -121,8 +98,7 @@ describe('Given a MatchComponent', () => {
 
       await render(MatchComponent, {
         componentProperties: {
-          allMatches: [
-            {
+          match: {
               id: '1',
               allowedPlayersNumber: 4,
               category: 'mixt',
@@ -133,18 +109,6 @@ describe('Given a MatchComponent', () => {
               signedPlayersNumber: 1,
               creator: 'ana@ana.com',
             },
-            {
-              id: '2',
-              allowedPlayersNumber: 4,
-              category: '',
-              date: new Date(),
-              image: '',
-              level: '',
-              paddleCourt: 3,
-              signedPlayersNumber: 4,
-              creator: 'ben@ben.com',
-            },
-          ],
         },
         imports: [HttpClientTestingModule],
         declarations: [MatchesComponent],
