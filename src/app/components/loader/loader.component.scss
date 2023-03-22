@@ -78,15 +78,3 @@ div{
     transform: translate(-125px, -9px) scaleX(1);
   }
 }
-
-@keyframes animloader1 {
-  0% {
-    box-shadow: 0 -6px, -122.9px -8px;
-  }
-  25%, 75% {
-    box-shadow: 0 0px, -122.9px -8px;
-  }
-  100% {
-    box-shadow: 0 0px, -122.9px -16px;
-  }
-}
