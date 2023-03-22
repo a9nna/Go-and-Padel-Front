@@ -15,7 +15,7 @@ import { selectMatchState } from '../../store/match/reducers/match.reducer';
 
 export const {
   apiUrl,
-  path: { matches, remove, create }
+  path: { matches, remove, create },
 } = environment as Environment;
 
 @Injectable({

@@ -7,6 +7,7 @@ export interface Environment {
     matches: string;
     create: string;
   };
+  images: string;
 }
 
 export type Store = Record<string, string>;

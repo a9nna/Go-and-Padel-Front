@@ -5,6 +5,7 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { HttpClientModule } from '@angular/common/http';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormBuilder, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { NgOptimizedImage, provideCloudinaryLoader } from '@angular/common';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { UsersService } from './services/users/users.service';
@@ -26,6 +27,12 @@ import { NavBarComponent } from './components/nav-bar/nav-bar.component';
 import { ModalComponent } from './components/modal/modal.component';
 import { NotFoundPageComponent } from './components/pages/not-found-page/not-found-page.component';
 import { MatchModule } from './store/match/match.module';
+import { environment } from '../environments/environment';
+import { type Environment } from 'src/types';
+
+const {
+  images
+} = environment as Environment
 
 @NgModule({
   declarations: [
@@ -55,6 +62,7 @@ import { MatchModule } from './store/match/match.module';
     MatchesModule,
     UiModule,
     MatchModule,
+    NgOptimizedImage,
   ],
   providers: [
     UsersService,
@@ -63,6 +71,7 @@ import { MatchModule } from './store/match/match.module';
     { provide: String, useValue: 'stringValue' },
     AuthService,
     TokenService,
+    provideCloudinaryLoader(`${images}`),
   ],
   bootstrap: [AppComponent],
 })

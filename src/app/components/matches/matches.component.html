@@ -1,3 +1,3 @@
 <ul>
-  <li *ngFor="let match of matches"><app-match [match]="match" (matchToDelete)="deleteMatch($event)"></app-match></li>
+  <li *ngFor="let match of matches, index as i"><app-match [match]="match" [index]="i" (matchToDelete)="deleteMatch($event)"></app-match></li>
 </ul>
