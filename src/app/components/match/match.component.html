@@ -1,5 +1,5 @@
 
-  <article>
+  <article (click)="onDetail(match)">
     <div *ngIf="index === 0 ; else noPriority">
       <img *ngIf="match.image.split('upload/').pop()" ngSrc="{{match.image.split('upload/').pop()}}" alt="Paddle court image" width="280" height="280" priority=""/>
     </div>

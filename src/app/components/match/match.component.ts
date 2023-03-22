@@ -27,6 +27,7 @@ export class MatchComponent {
   index!: number;
 
   @Output() matchToDelete = new EventEmitter<Match>();
+  @Output() matchToDetail = new EventEmitter<Match>();
 
   deleteAriaLabel = 'Delete match';
 
@@ -36,5 +37,9 @@ export class MatchComponent {
 
   onDelete(match: Match) {
     this.matchToDelete.emit(match);
+  }
+
+  onDetail(match: Match) {
+    this.matchToDetail.emit(match);
   }
 }
