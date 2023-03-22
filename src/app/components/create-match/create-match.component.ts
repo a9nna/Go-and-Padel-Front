@@ -5,7 +5,7 @@ import { Store } from '@ngrx/store';
 import { selectEmail } from '../../store/users/reducers/user.reducer';
 import { type Match } from '../../match.model';
 import { MatchesService } from '../../services/matches/matches.service';
-
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-create-match',
   templateUrl: './create-match.component.html',
@@ -24,11 +24,9 @@ export class CreateMatchComponent {
 
   creator!: string;
 
-  subscribeCreator = this.store
-    .select(selectEmail)
-    .subscribe((data) => {
-      this.creator = data
-    });
+  subscribeCreator = this.store.select(selectEmail).subscribe((data) => {
+    this.creator = data;
+  });
 
   createForm: FormGroup = this.formBuilder.group({
     creator: this.creator,
@@ -44,13 +42,21 @@ export class CreateMatchComponent {
   constructor(
     @Inject(FormBuilder) private readonly formBuilder: FormBuilder,
     @Inject(MatchesService) private readonly matchesService: MatchesService,
-
-    @Inject(Store) private readonly store: Store
+    @Inject(Store) private readonly store: Store,
+    @Inject(Router) private readonly router: Router
   ) {}
 
   onSubmit() {
     const matchData = this.createForm.value as Match;
 
     this.matchesService.createMatch(matchData);
+  }
+
+  ngOnInit() {
+    const token = localStorage.getItem('token')!;
+
+    if (!token) {
+      (async () => this.router.navigate(['login']))();
+    }
   }
 }
