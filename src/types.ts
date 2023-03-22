@@ -10,3 +10,8 @@ export interface Environment {
 }
 
 export type Store = Record<string, string>;
+
+export interface ErrorDetails {
+  code: string,
+  message: string
+}
