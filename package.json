@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build:env": "ng generate environments && sed -i 's|};| production: '$PRODUCTION',\\n apiUrl: '$API_URL',\\n path: {\\n users: '$USERS_URL',\\n loginUser: '$LOGIN_URL',\\n matches: '$MATCHES_URL', \\n remove: '$DELETE_URL', \\n create: '$CREATE_URL' \\n }\\n};|' ./src/environments/environment.ts",
+    "build:env": "ng generate environments && sed -i 's|};| production: '$PRODUCTION',\\n apiUrl: '$API_URL',\\n path: {\\n users: '$USERS_URL',\\n loginUser: '$LOGIN_URL',\\n matches: '$MATCHES_URL', \\n remove: '$DELETE_URL', \\n create: '$CREATE_URL' \\n },\\n images: '$IMAGES_URL'\\n };|' ./src/environments/environment.ts",
     "watch": "ng build --watch --configuration development",
     "test": "jest --no-cache",
     "test:dev": "jest --no-cache --watchAll",

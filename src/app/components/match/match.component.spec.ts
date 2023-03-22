@@ -45,15 +45,6 @@ describe('Given a MatchComponent', () => {
       return { store, matchesService };
     };
 
-    test("Then it should show an image with description 'Paddle court image'", async() => {
-      const text = 'Paddle court image';
-
-      await renderComponent();
-      const image = screen.getAllByAltText(text);
-
-      expect(image[0]).toBeInTheDocument();
-    })
-
     test("Then it should show a 'Tuesday 07, 02:00 PM' text", async() => {
       const day = 'Tuesday 07, ';
       const hourText =

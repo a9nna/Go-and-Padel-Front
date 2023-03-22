@@ -22,6 +22,9 @@ export class MatchComponent {
     signedPlayersNumber: 0,
   };
 
+  @Input()
+  index!: number;
+
   @Output() matchToDelete = new EventEmitter<Match>();
 
   deleteAriaLabel = 'Delete match';

@@ -1,6 +1,11 @@
 
   <article>
-    <img src="{{ match.image }}" alt="Paddle court image" width="300" height="230"/>
+    <div *ngIf="index === 0 ; else noPriority">
+      <img *ngIf="match.image.split('upload/').pop()" ngSrc="{{match.image.split('upload/').pop()}}" alt="Paddle court image" width="280" height="280" priority=""/>
+    </div>
+    <ng-template #noPriority>
+      <img *ngIf="match.image.split('upload/').pop()" ngSrc="{{match.image.split('upload/').pop()}}" alt="Paddle court image" width="280" height="280" />
+    </ng-template>
     <div class="info">
       <div class="info__date">
         <i></i>
